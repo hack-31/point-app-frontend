@@ -1,9 +1,8 @@
 version: "3.8"
 services:
   node:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    working_dir: /app
+    image: node:18-alpine
     volumes:
       - ./:/app
     tty: true
