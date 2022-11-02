@@ -4,10 +4,10 @@
 
 # ローカル環境構築手順
 
-```
+```sh
 $ git clone https://github.com/hack-31/point-app-frontend.git
 $ cd ./point-app-frontend
-$ docker-compose build
-$ docker-compose run --rm node yarn install
-$ docker-compose up -d
+$ make build-up
 ```
+
+[http://localhost:3000/](http://localhost:3000/)にアクセス
