@@ -1,6 +1,6 @@
 import Axios, { AxiosRequestConfig } from "axios";
 
-import { API_URL } from "../config";
+import { API_URL } from "@/config";
 
 function authRequestInterceptor(config: AxiosRequestConfig) {
   config.headers?.common?.setAccept("application/json");
