@@ -18,9 +18,16 @@ export const axios = Axios.create({
 axios.interceptors.request.use(authRequestInterceptor);
 axios.interceptors.response.use(
   (response) => {
-    return response.data;
+    return response;
   },
   (error) => {
     return Promise.reject(error);
   }
 );
+
+export type Response<T> = {
+  message: string;
+  data: T;
+  statusCode: number;
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+};

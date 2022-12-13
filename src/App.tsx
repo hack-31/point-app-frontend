@@ -1,5 +1,5 @@
-import { axios } from "@/lib/axios";
-import { useMutation } from "@tanstack/react-query";
+import { axios, Response } from "@/lib/axios";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -19,11 +19,11 @@ function App() {
   // NOTE: usequeryはisLoadingとerrorhは不要
   const { mutate, isLoading } = useMutation(
     (data: { name: string; email: string; password: string }) =>
-      axios.post<{ id: string }>("/register", data),
+      axios.post<Response<{ id: string }>>("/register", data),
     {
       onSuccess: (res) => {
         setError("");
-        setUserId(res.data.id);
+        setUserId(res.data.data.id);
       },
       onError: (error: AxiosError<{ message: string }>, variables, context) => {
         setUserId("");
