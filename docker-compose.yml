@@ -9,3 +9,9 @@ services:
     ports:
       - "3000:3000"
     command: yarn dev
+  api:
+    image: stoplight/prism:latest
+    container_name: "api"
+    ports:
+      - "3001:4010"
+    command: mock  -h 0.0.0.0 https://hack-31.github.io/point-app-backend/openapi.yml
