@@ -15,3 +15,15 @@ $ make up
 ```
 
 [http://localhost:3000/](http://localhost:3000/)にアクセス
+
+# モック API
+
+モック API として[swagger 定義](https://hack-31.github.io/point-app-backend/openapi.yml)を元に作成しております。
+`localhost:3001`にアクセスすることで利用できます。（デフォルトで設定済み）
+swagger 定義が更新されるとモックサーバーを起動し直してください。
+
+```sh
+$ make remock
+```
+
+バックエンド側を実際にモックとして使いたい場合などは環境変数`VITE_APP_API_URL`を変更してください

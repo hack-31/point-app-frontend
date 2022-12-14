@@ -13,6 +13,9 @@ serve: ## serve with air
 install: ## package install
 	docker compose run --rm node yarn --frozen-lockfile
 
+remock: ## restart mock server
+	docker compose restart api
+
 up: ## Do docker compose up with hot reload
 	docker compose up -d
 
