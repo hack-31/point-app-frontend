@@ -10,6 +10,9 @@ build-up: ## Build docker image and install package and up container
 serve: ## serve with air 
 	docker compose exec app air
 
+node: ## Attach node container
+	docker compose exec node sh
+
 install: ## package install
 	docker compose run --rm node yarn --frozen-lockfile
 
