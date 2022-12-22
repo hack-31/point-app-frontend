@@ -7,6 +7,7 @@ module.exports = {
     extends: [
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:import/recommended",
         "plugin:@typescript-eslint/recommended",
     ],
     overrides: [],
@@ -41,6 +42,8 @@ module.exports = {
         "react/jsx-curly-newline": "off",
         "react/jsx-one-expression-per-line": "off",
         "react/require-default-props": "off",
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
         "import/no-extraneous-dependencies": "off",
         "no-shadow": "off",
     },
