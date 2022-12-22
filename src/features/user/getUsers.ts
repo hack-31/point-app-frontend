@@ -1,0 +1,1 @@
+// useQureyするPromise関数を用意するだけ（GETは同様）
