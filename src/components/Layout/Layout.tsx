@@ -1,18 +1,17 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
 
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
 export const Layout = () => {
-
   return (
     <>
       <Suspense
         fallback={
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: "flex" }}>
             <CircularProgress />
           </Box>
         }

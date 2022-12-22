@@ -1,8 +1,11 @@
-import { AppRoutes } from '@/routes';
+import { AppRoutes } from "@/routes";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
-    <AppRoutes />
+    <RecoilRoot>
+      <AppRoutes />
+    </RecoilRoot>
   );
 }
 

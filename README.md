@@ -70,10 +70,10 @@ src
 │        └ SendPoint
 ├ routes // ルーティングの設定
 │  └ index.tsx
-├ globalStates // Recoilで管理するグローバルなステート
-│  ├ atoms
-│  │  └ user.ts
-│  └ selectors
+├ states // Recoilで管理するステート
+│  └ auth
+│     ├ atoms.ts
+│     └ selectors.ts
 ├ App.tsx
 ├ index.css
 ├ index.tsx
