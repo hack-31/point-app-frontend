@@ -1,41 +1,44 @@
-import * as React from 'react';
-
+import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 
 type HeaderProps = {
-  // children: React.ReactNode;
   title: string;
 };
 
-export const Header = ({ title = "360°評価システム" }: HeaderProps) => {
+export const Header = (props: HeaderProps) => {
+  const { title } = props;
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography component="div" sx={{ flexGrow: 1 }} align="center">
             {title}
           </Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
-};
-
-
-
-// const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-// const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-//   setAnchorEl(event.currentTarget);
-// }
-// const handleClose = () => {
-//   setAnchorEl(null);
-// };
-// childrenを以下にするとアイコン登場
-{/* <IconButton
+          {auth && (
+            <div>
+              <IconButton
                 size="large"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -50,16 +53,23 @@ export const Header = ({ title = "360°評価システム" }: HeaderProps) => {
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: "top",
-                  horizontal: "right"
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "right"
+                  horizontal: "right",
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>アカウント情報</MenuItem>
                 <MenuItem onClick={handleClose}>サインアウト</MenuItem>
-              </Menu> */}
+              </Menu>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+};

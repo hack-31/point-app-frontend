@@ -1,16 +1,16 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { lazyImport } from '@/utils/lazyImport';
-import { Layout } from '@/components/Layout';
+import { lazyImport } from "@/utils/lazyImport";
+import { Layout } from "@/components/Layout";
 
-const { Users } = lazyImport(() => import('@/pages/Users'), 'Users');
-const { Login } = lazyImport(() => import('@/pages/Login'), 'Login');
-const { Signup } = lazyImport(() => import('@/pages/Signup'), 'Signup');
+const { Users } = lazyImport(() => import("@/pages/Users"), "Users");
+const { Login } = lazyImport(() => import("@/pages/Login"), "Login");
+const { Signup } = lazyImport(() => import("@/pages/Signup"), "Signup");
 
-const theme = createTheme();
+const theme = createTheme({});
 
 export const AppRoutes = () => {
   // TODO: メールアドレス・パスワード変更画面、名前変更画面のルーティング追加
@@ -31,5 +31,4 @@ export const AppRoutes = () => {
       </Box>
     </ThemeProvider>
   );
-}
-
+};

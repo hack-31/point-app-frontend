@@ -21,6 +21,7 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
+    // エラーのatoms持たせて、ここで突っ込めば共通化できる
     return Promise.reject(error);
   }
 );

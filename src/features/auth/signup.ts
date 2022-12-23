@@ -1,4 +1,4 @@
-import { axios } from '@/lib/axios';
+import { axios } from "@/lib/axios";
 
 export type TemporarySignUpRequest = {
   familyName: string;
@@ -16,7 +16,7 @@ export type TemporarySignupResponse = {
 export const temporarySignup = (
   data: TemporarySignUpRequest
 ): Promise<TemporarySignupResponse> => {
-  return axios.post('/temporary_users', data);
+  return axios.post("/temporary_users", data);
 };
 
 export type SignUpRequest = {
@@ -29,10 +29,6 @@ export type SignupResponse = {
   accessToken: string;
 };
 
-export const signup = (
-  data: SignUpRequest
-): Promise<SignupResponse> => {
-  return axios.post('/users', data);
+export const signup = (data: SignUpRequest): Promise<SignupResponse> => {
+  return axios.post("/users", data);
 };
-
-
