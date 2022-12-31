@@ -1,11 +1,15 @@
+import { AppProvider } from "@/providers/app";
 import { AppRoutes } from "@/routes";
-import { RecoilRoot } from "recoil";
 
+/**
+ * Appのルート
+ * 個々のProviderはここに書かないこと
+ */
 function App() {
   return (
-    <RecoilRoot>
+    <AppProvider>
       <AppRoutes />
-    </RecoilRoot>
+    </AppProvider>
   );
 }
 
