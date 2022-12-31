@@ -26,9 +26,14 @@ axios.interceptors.response.use(
   }
 );
 
-export type Response<T> = {
+export type SuccessResponse<T> = {
+  statusCode: number;
   message: string;
   data: T;
+};
+
+export type ErrResponse = {
   statusCode: number;
-  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+  title: string;
+  message: string;
 };
