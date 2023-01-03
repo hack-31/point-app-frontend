@@ -47,7 +47,9 @@ export const Signup: React.FC = React.memo(() => {
         setTemporaryUserId(res.data.data.temporaryUserId);
         handleOpen();
       },
-      onError: (err: AxiosError<{ title: string; message: string }>) => {
+      onError: (
+        err: AxiosError<{ statusCode: number; title: string; message: string }>
+      ) => {
         if (err.response?.status === 500) {
           setError("email", {
             message: "メールアドレスが認証されていません。",

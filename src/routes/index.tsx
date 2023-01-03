@@ -1,20 +1,18 @@
-import { useAuth } from "@/lib/auth";
-import { ErrorFallback } from "@/providers/app";
-import { createBrowserRouter, redirect, useRoutes } from "react-router-dom";
+import { Error } from "@/components/Error";
+import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
 import { publicRoutes } from "./public";
 
 /**
  * 全体のルーティングの設定
  */
 export const getAppRoutes = () => {
-  const commonRoutes = [
+  const commonRoutes: RouteObject[] = [
     {
       path: "/",
-      element: <></>,
       errorElement: (
-        <ErrorFallback
-          reset={() => window.location.assign(window.location.origin)}
-          error={Error("ページが存在しません。")}
+        <Error
+          title="404"
+          message="このページはすでに削除されているか、URLが間違っている可能性があります。"
         />
       ),
       loader: async () => {
