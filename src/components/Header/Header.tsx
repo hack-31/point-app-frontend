@@ -1,26 +1,14 @@
-import * as React from "react";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
+import * as React from "react";
 
-type HeaderProps = {
-  title: string;
-};
-
-export const Header = (props: HeaderProps) => {
-  const { title } = props;
-  const [auth, setAuth] = React.useState(true);
+export const Header = React.memo(() => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
-
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -30,46 +18,45 @@ export const Header = (props: HeaderProps) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography component="div" sx={{ flexGrow: 1 }} align="center">
-            {title}
-          </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>アカウント情報</MenuItem>
-                <MenuItem onClick={handleClose}>サインアウト</MenuItem>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar position="fixed">
+      <Toolbar>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ flexGrow: 1 }}
+          align="center"
+        >
+          ポイントアプリ
+        </Typography>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>アカウント情報</MenuItem>
+          <MenuItem onClick={handleClose}>サインアウト</MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
-};
+});
