@@ -1,13 +1,20 @@
 import { AuthProvider } from "@/lib/auth";
 import { queryClient } from "@/lib/react-query";
-import { Box, Button, createTheme, ThemeProvider } from "@mui/material";
+import { getAppRoutes } from "@/routes";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
 import {
   QueryClientProvider,
   QueryErrorResetBoundary,
 } from "@tanstack/react-query";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { BrowserRouter as Router } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
 /**
@@ -15,7 +22,7 @@ import { RecoilRoot } from "recoil";
  * @param param0
  * @returns
  */
-const ErrorFallback = ({
+export const ErrorFallback = ({
   reset,
   error,
 }: {
@@ -34,14 +41,14 @@ const ErrorFallback = ({
       <h2>エラーが発生しました。</h2>
       <p>{error.message}</p>
       <Button variant="contained" onClick={() => reset()}>
-        再取得
+        ホームへ
       </Button>
     </Box>
   );
 };
 
 type AppProviderProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 /**
@@ -59,12 +66,23 @@ export const AppProvider = ({ children }: AppProviderProps) => {
               <ErrorFallback reset={resetErrorBoundary} error={error} />
             )}
           >
-            <React.Suspense fallback={<div>loading...</div>}>
+            <React.Suspense
+              fallback={
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  height="100vh"
+                >
+                  <CircularProgress />
+                </Box>
+              }
+            >
               <QueryClientProvider client={queryClient}>
                 <AuthProvider>
-                  <Router>
-                    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-                  </Router>
+                  <ThemeProvider theme={theme}>
+                    <RouterProvider router={getAppRoutes()} />
+                  </ThemeProvider>
                 </AuthProvider>
               </QueryClientProvider>
             </React.Suspense>
