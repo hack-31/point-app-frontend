@@ -1,23 +1,38 @@
+import { Header } from "@/components/Header";
+import Box from "@mui/material/Box";
 import * as React from "react";
 
-import { Suspense } from "react";
-import { Outlet } from "react-router-dom";
+type MainLayoutProps = {
+  children: React.ReactNode;
+};
 
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-
-export const Layout = () => {
+/**
+ * メインレイアウト
+ * @param param0 子コンポーネント
+ */
+export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <>
-      <Suspense
-        fallback={
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
-          </Box>
-        }
+    <Box display="flex" flexDirection="column" minHeight="100vh">
+      <Header />
+      <Box
+        sx={[
+          {
+            flex: 1,
+            my: "70px",
+            mx: "auto",
+            width: "100%",
+            maxWidth: "1230px",
+          },
+          ({ breakpoints }) => ({
+            [breakpoints.up("sm")]: {
+              my: "80px",
+            },
+          }),
+        ]}
       >
-        <Outlet />
-      </Suspense>
-    </>
+        <main>{children}</main>
+      </Box>
+      <footer>copy light, point app. inc.</footer>
+    </Box>
   );
 };
