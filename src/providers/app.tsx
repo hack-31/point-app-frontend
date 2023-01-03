@@ -3,17 +3,12 @@ import { queryClient } from "@/lib/react-query";
 import { getAppRoutes } from "@/routes";
 import {
   Box,
-  Button,
   CircularProgress,
   createTheme,
   ThemeProvider,
 } from "@mui/material";
-import {
-  QueryClientProvider,
-  QueryErrorResetBoundary,
-} from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import * as React from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
