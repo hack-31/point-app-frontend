@@ -113,7 +113,11 @@ export function initReactQueryAuth<
     const value = React.useMemo(
       () => ({
         user,
-        error,
+        error:
+          (registerMutation.error as Error) ||
+          (logoutMutation.error as Error) ||
+          (loginMutation.error as Error) ||
+          error,
         refetchUser: refetch,
         login: loginMutation.mutateAsync,
         isLoggingIn: loginMutation.isLoading,

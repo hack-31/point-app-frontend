@@ -8,6 +8,7 @@ import { ErrResponse } from "@/lib/axios";
 import { initReactQueryAuth } from "@/lib/react-query-auth";
 import storage from "@/utils/storage";
 import { Box, LinearProgress } from "@mui/material";
+import { AxiosError } from "axios";
 
 async function handleUserResponse(data: UserResponse) {
   const {
@@ -19,11 +20,12 @@ async function handleUserResponse(data: UserResponse) {
 
 async function loadUser() {
   // TODO: 一旦コメントアウト
+  // トークンより取得するユーザ取得APIを叩く
   // if (storage.getToken()) {
   //   const data = await getUser();
   //   return data;
   // }
-  return null;
+  return { userId: "2" };
 }
 
 async function loginFn(data: LoginCredentialsDTO) {
@@ -64,13 +66,14 @@ const authConfig = {
   },
 };
 
+// TODO: /acccount　のレスポンスの型に変更する
 type AuthUser = {
   userId: string;
 };
 
 export const { AuthProvider, useAuth, AuthConsumer } = initReactQueryAuth<
   AuthUser | null,
-  ErrResponse,
+  AxiosError<ErrResponse>,
   LoginCredentialsDTO,
   RegisterCredentialsDTO
 >(authConfig);
