@@ -1,9 +1,20 @@
+import { API_URL } from "@/config";
+import storage from "@/utils/storage";
 import Axios, { AxiosRequestConfig } from "axios";
 
-import { API_URL } from "@/config";
-
 function authRequestInterceptor(config: AxiosRequestConfig) {
-  config.headers?.common?.setAccept("application/json");
+  const token = storage.getToken() as string;
+
+  if (token) {
+    config.headers
+      ? (config.headers.Authorization = `Bearer ${token}`)
+      : (config.headers = { Authorization: `Bearer ${token}` });
+  }
+
+  config.headers
+    ? (config.headers.Accept = "application/json")
+    : (config.headers = { Accept: "application/json" });
+
   return config;
 }
 /**
