@@ -50,14 +50,12 @@ export const Signup: React.FC = React.memo(() => {
       onError: (
         err: AxiosError<{ statusCode: number; title: string; message: string }>
       ) => {
-        if (err.response?.status === 500) {
-          setError("email", {
-            message: "メールアドレスが認証されていません。",
-          });
-          return;
-        }
         if (err.response?.status === 409) {
-          setError("email", { message: err.response.data.message });
+          setError(
+            "email",
+            { message: err.response.data.message },
+            { shouldFocus: true }
+          );
           return;
         }
         throw Error(err.response?.data.message);
@@ -67,9 +65,9 @@ export const Signup: React.FC = React.memo(() => {
 
   return (
     <Box className="App" mx="auto" maxWidth="400px">
-      <h2>
-        <Box textAlign="center">アカウント新規登録</Box>
-      </h2>
+      <Box textAlign="center" component="h2">
+        アカウント新規登録
+      </Box>
       <form onSubmit={handleSubmit((data) => mutate(data))}>
         <Box marginBottom="24px">
           <Box mb="4px">メールアドレス</Box>
