@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { useRouteError } from "react-router-dom";
 
 type Props = {
-  title?: string;
+  status?: string;
   message?: string;
 };
 
@@ -13,13 +13,15 @@ type Props = {
  * @param param0
  * @returns
  */
-export const Error = ({ title, message }: Props) => {
-  const error = useRouteError() as AxiosError<{
+export const Error = ({ status, message }: Props) => {
+  const error = useRouteError();
+  const { reset } = useQueryErrorResetBoundary();
+
+  type HttpResponse = AxiosError<{
     statusCode: number;
-    title: string;
+    status: string;
     message: string;
   }>;
-  const { reset } = useQueryErrorResetBoundary();
 
   return (
     <Box
@@ -30,8 +32,18 @@ export const Error = ({ title, message }: Props) => {
       height="100vh"
       flexDirection="column"
     >
-      <h1>{title || error.response?.data.title || "エラーが発生しました。"}</h1>
-      <p>{message || error.response?.data.message || error.message}</p>
+      <h1>
+        {status ||
+          (error as HttpResponse).response?.status ||
+          (error as Response).status ||
+          (error as Error).message}
+      </h1>
+      <p>
+        {message ||
+          (error as HttpResponse).response?.data.message ||
+          (error as Response).statusText ||
+          ((error as Error).cause as string)}
+      </p>
       <Button
         variant="outlined"
         onClick={() => {
