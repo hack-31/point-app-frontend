@@ -1,6 +1,6 @@
 import { axios, SuccessResponse } from "@/lib/axios";
 
-export type UserResponse = SuccessResponse<{
+export type RegisterUserResponse = SuccessResponse<{
   accessToken: string;
   userId: string;
 }>;
@@ -11,5 +11,5 @@ export type RegisterCredentialsDTO = {
 };
 
 export const registerUser = (data: RegisterCredentialsDTO) => {
-  return axios.post<UserResponse>("/users", data);
+  return axios.post<RegisterUserResponse>("/users", data);
 };

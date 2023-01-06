@@ -43,7 +43,7 @@ export const AuthCodeModal = React.memo(
               confirmCode,
               temporaryUserId,
             });
-            navigate("/list");
+            navigate("/users");
           })}
         >
           <DialogTitle>認証コード</DialogTitle>

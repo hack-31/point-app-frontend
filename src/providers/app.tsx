@@ -12,14 +12,10 @@ import * as React from "react";
 import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
-type AppProviderProps = {
-  children?: React.ReactNode;
-};
-
 /**
  * プロパイダー
  */
-export const AppProvider = ({ children }: AppProviderProps) => {
+export const AppProvider = () => {
   const theme = createTheme({});
   return (
     <RecoilRoot>
@@ -38,11 +34,20 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <ThemeProvider theme={theme}>
-              <RouterProvider router={getAppRoutes()} />
+              <WrapRouterProvider />
             </ThemeProvider>
           </AuthProvider>
         </QueryClientProvider>
       </React.Suspense>
     </RecoilRoot>
   );
+};
+
+/**
+ * propsに指定したgetAppRouters()内でuseAuthを利用しているが、
+ * このフックはAuthProviderコンポーネント内でしか利用できないため、Wrapする必要がある
+ * そうしないとエラーになる
+ */
+const WrapRouterProvider = () => {
+  return <RouterProvider router={getAppRoutes()} />;
 };

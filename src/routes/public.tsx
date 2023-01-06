@@ -1,5 +1,5 @@
-import { MainLayout } from "@/components/Layout";
 import { Error } from "@/components/Error";
+import { MainLayout } from "@/components/Layout";
 import { lazyImport } from "@/utils/lazyImport";
 import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
@@ -36,7 +36,16 @@ export const publicRoutes: RouteObject[] = [
   {
     path: "/",
     element: <App />,
-    errorElement: <Error />,
-    children: [{ path: "/signup", element: <SignupPage /> }],
+    children: [
+      {
+        errorElement: <Error />,
+        children: [
+          {
+            path: "signup",
+            element: <SignupPage />,
+          },
+        ],
+      },
+    ],
   },
 ];
