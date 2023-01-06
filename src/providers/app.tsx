@@ -1,56 +1,53 @@
+import { AuthProvider } from "@/lib/auth";
 import { queryClient } from "@/lib/react-query";
+import { getAppRoutes } from "@/routes";
 import {
-  QueryClientProvider,
-  QueryErrorResetBoundary,
-} from "@tanstack/react-query";
+  Box,
+  CircularProgress,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
+import { QueryClientProvider } from "@tanstack/react-query";
 import * as React from "react";
-import { ErrorBoundary } from "react-error-boundary";
-
-/**
- * エラー画面
- * @param param0
- * @returns
- */
-const ErrorFallback = ({
-  reset,
-  error,
-}: {
-  reset: (...args: unknown[]) => void;
-  error: Error;
-}) => {
-  return (
-    <div role="alert">
-      <h2>エラーが発生しました。</h2>
-      <p>{error.message}</p>
-      <button onClick={() => reset()}>再取得</button>
-    </div>
-  );
-};
-
-type AppProviderProps = {
-  children: React.ReactNode;
-};
+import { RouterProvider } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 /**
  * プロパイダー
  */
-export const AppProvider = ({ children }: AppProviderProps) => {
+export const AppProvider = () => {
+  const theme = createTheme({});
   return (
-    <QueryErrorResetBoundary>
-      {({ reset }) => (
-        <ErrorBoundary
-          onReset={reset}
-          fallbackRender={({ resetErrorBoundary, error }) => (
-            <ErrorFallback reset={resetErrorBoundary} error={error} />
-          )}
-        >
-          <React.Suspense fallback={<div>loading...</div>}>
-            <QueryClientProvider client={queryClient}>
-              {children}
-            </QueryClientProvider>
-          </React.Suspense>
-        </ErrorBoundary>
-      )}
-    </QueryErrorResetBoundary>
+    <RecoilRoot>
+      <React.Suspense
+        fallback={
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            height="100vh"
+          >
+            <CircularProgress />
+          </Box>
+        }
+      >
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <ThemeProvider theme={theme}>
+              <WrapRouterProvider />
+            </ThemeProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </React.Suspense>
+    </RecoilRoot>
   );
+};
+
+/**
+ * propsに指定したgetAppRouters()内でuseAuthを利用しているが、
+ * このフックはAuthProviderコンポーネント内でしか利用できないため、Wrapする必要がある
+ * そうしないとエラーになる
+ */
+const WrapRouterProvider = () => {
+  return <RouterProvider router={getAppRoutes()} />;
 };
