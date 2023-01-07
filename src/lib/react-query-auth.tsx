@@ -82,6 +82,7 @@ export function initReactQueryAuth<
     } = useQuery<User, Error>({
       queryKey: [key],
       queryFn: loadUser,
+      useErrorBoundary: false,
     });
 
     const setUser = React.useCallback(
@@ -91,6 +92,7 @@ export function initReactQueryAuth<
 
     const loginMutation = useMutation({
       mutationFn: loginFn,
+      useErrorBoundary: false,
       onSuccess: (user) => {
         setUser(user);
       },
@@ -98,6 +100,7 @@ export function initReactQueryAuth<
 
     const registerMutation = useMutation({
       mutationFn: registerFn,
+      useErrorBoundary: false,
       onSuccess: (user) => {
         setUser(user);
       },
@@ -105,6 +108,7 @@ export function initReactQueryAuth<
 
     const logoutMutation = useMutation({
       mutationFn: logoutFn,
+      useErrorBoundary: false,
       onSuccess: () => {
         queryClient.clear();
       },

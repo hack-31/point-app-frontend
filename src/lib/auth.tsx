@@ -21,25 +21,21 @@ async function loadUser() {
 }
 
 async function loginFn(data: LoginCredentialsDTO) {
-  try {
-    const response = await loginWithEmailAndPassword(data);
-    storage.setToken(response.data.data.accessToken);
-    const res = await getUser();
-    return res.data.data;
-  } catch (error) {
-    return null;
-  }
+  // lib/react-query-auth.tsxでuseErrorBoundaryをfalseに指定しており、
+  // 例外をキャッチしない設定なのでtry/catchはしない
+  const response = await loginWithEmailAndPassword(data);
+  storage.setToken(response.data.data.accessToken);
+  const res = await getUser();
+  return res.data.data;
 }
 
 async function registerFn(data: RegisterCredentialsDTO) {
-  try {
-    const response = await registerUser(data);
-    storage.setToken(response.data.data.accessToken);
-    const res = await getUser();
-    return res.data.data;
-  } catch (error) {
-    return null;
-  }
+  // lib/react-query-auth.tsxでuseErrorBoundaryをfalseに指定しており、
+  // 例外をキャッチしない設定なのでtry/catchはしない
+  const response = await registerUser(data);
+  storage.setToken(response.data.data.accessToken);
+  const res = await getUser();
+  return res.data.data;
 }
 
 async function logoutFn() {
