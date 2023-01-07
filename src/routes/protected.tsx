@@ -1,7 +1,7 @@
 import { Error } from "@/components/Error";
 import { MainLayout } from "@/components/Layout";
 import { useAuth } from "@/lib/auth";
-import { lazyImport } from "@/utils/lazyImport";
+import { AccountPage } from "@/pages/Account";
 import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { Suspense } from "react";
@@ -49,10 +49,8 @@ export const getProtectedRoutes = (): RouteObject[] => {
             return null;
           },
           children: [
-            {
-              path: "users",
-              element: <div>users</div>,
-            },
+            { path: "users", element: <div>users</div> },
+            { path: "account", element: <AccountPage /> },
           ],
         },
       ],
