@@ -2,6 +2,9 @@ import {
   ERR_MAIL_FORMAT_MESSAGE,
   ERR_REQUIRE_MESSAGE,
   MAIL_FORMAT_REGEXP,
+  MAX_MAIL_LENGTH,
+  MAX_PASSWORD_LENGTH,
+  MIN_PASSWORD_LENGTH,
 } from "@/const/const";
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
@@ -64,8 +67,8 @@ export const Signup: React.FC = React.memo(() => {
   );
 
   return (
-    <Box className="App" mx="auto" maxWidth="400px">
-      <Box textAlign="center" component="h2">
+    <Box className="App" mx="auto" maxWidth="400px" mt="100px">
+      <Box textAlign="center" component="h2" mb="60px" color="#333">
         アカウント新規登録
       </Box>
       <form onSubmit={handleSubmit((data) => mutate(data))}>
@@ -81,6 +84,10 @@ export const Signup: React.FC = React.memo(() => {
               pattern: {
                 value: MAIL_FORMAT_REGEXP,
                 message: ERR_MAIL_FORMAT_MESSAGE,
+              },
+              maxLength: {
+                value: MAX_MAIL_LENGTH.VALUE,
+                message: MAX_MAIL_LENGTH.MESSAGE,
               },
             })}
           />
@@ -150,6 +157,14 @@ export const Signup: React.FC = React.memo(() => {
             variant="outlined"
             {...register("password", {
               required: { value: true, message: ERR_REQUIRE_MESSAGE },
+              minLength: {
+                value: MIN_PASSWORD_LENGTH.VALUE,
+                message: MIN_PASSWORD_LENGTH.MESSAGE,
+              },
+              maxLength: {
+                value: MAX_PASSWORD_LENGTH.VALUE,
+                message: MAX_PASSWORD_LENGTH.MESSAGE,
+              },
             })}
           />
           <Box sx={{ color: "error.main" }}>{errors.password?.message}</Box>
