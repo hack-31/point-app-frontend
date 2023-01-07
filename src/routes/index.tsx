@@ -19,9 +19,8 @@ export const getAppRoutes = () => {
         />
       ),
       loader: async () => {
-        // TODO: loginに変更する
         if (!user) {
-          return redirect("/signup");
+          return redirect("/login");
         }
         return redirect("/users");
       },
