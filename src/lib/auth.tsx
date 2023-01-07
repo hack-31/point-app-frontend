@@ -1,6 +1,9 @@
 import { RegisterCredentialsDTO, registerUser } from "@/features/auth";
 import { getUser } from "@/features/auth/api/getUser";
-import { LoginCredentialsDTO } from "@/features/auth/api/login";
+import {
+  LoginCredentialsDTO,
+  loginWithEmailAndPassword,
+} from "@/features/auth/api/login";
 import { ErrResponse } from "@/lib/axios";
 import { initReactQueryAuth } from "@/lib/react-query-auth";
 import storage from "@/utils/storage";
@@ -18,22 +21,17 @@ async function loadUser() {
 }
 
 async function loginFn(data: LoginCredentialsDTO) {
-  // const response = await loginWithEmailAndPassword(data);
-  // const user = await handleUserResponse(response);
-  // TODO: 一旦固定値
-  return {
-    email: "",
-    firstName: "",
-    firstNameKana: "",
-    familyName: "",
-    familyNameKana: "",
-    acquisitionPoint: 0,
-    sendablePoint: 0,
-    userId: 0,
-  };
+  // lib/react-query-auth.tsxでuseErrorBoundaryをfalseに指定しており、
+  // 例外をキャッチしない設定なのでtry/catchはしない
+  const response = await loginWithEmailAndPassword(data);
+  storage.setToken(response.data.data.accessToken);
+  const res = await getUser();
+  return res.data.data;
 }
 
 async function registerFn(data: RegisterCredentialsDTO) {
+  // lib/react-query-auth.tsxでuseErrorBoundaryをfalseに指定しており、
+  // 例外をキャッチしない設定なのでtry/catchはしない
   const response = await registerUser(data);
   storage.setToken(response.data.data.accessToken);
   const res = await getUser();
