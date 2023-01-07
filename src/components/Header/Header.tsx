@@ -1,3 +1,4 @@
+import { useAuth } from "@/lib/auth";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
@@ -6,16 +7,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { Link } from "react-router-dom";
+import { useHandleMenu } from "./hooks";
 
 export const Header = React.memo(() => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const { user } = useAuth();
+  const { anchorEl, closeMenu, openMenu } = useHandleMenu();
 
   return (
     <AppBar position="fixed">
@@ -27,35 +24,37 @@ export const Header = React.memo(() => {
           sx={{ flexGrow: 1 }}
           align="center"
         >
-          ポイントアプリ
+          <Link to="/">ポイントアプリ</Link>
         </Typography>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleMenu}
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>アカウント情報</MenuItem>
-          <MenuItem onClick={handleClose}>サインアウト</MenuItem>
-        </Menu>
+        {user && (
+          <>
+            <IconButton
+              size="large"
+              aria-label="ユーザメニュー"
+              onClick={openMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={closeMenu}
+            >
+              <MenuItem onClick={closeMenu}>アカウント情報</MenuItem>
+              <MenuItem onClick={closeMenu}>サインアウト</MenuItem>
+            </Menu>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
