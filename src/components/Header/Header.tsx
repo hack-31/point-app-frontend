@@ -7,12 +7,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useHandleMenu } from "./hooks";
 
 export const Header = React.memo(() => {
   const { user } = useAuth();
   const { anchorEl, closeMenu, openMenu } = useHandleMenu();
+  const navigate = useNavigate();
 
   return (
     <AppBar position="fixed">
@@ -50,7 +51,14 @@ export const Header = React.memo(() => {
               open={Boolean(anchorEl)}
               onClose={closeMenu}
             >
-              <MenuItem onClick={closeMenu}>アカウント情報</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  closeMenu();
+                  navigate("/account");
+                }}
+              >
+                アカウント情報
+              </MenuItem>
               <MenuItem onClick={closeMenu}>サインアウト</MenuItem>
             </Menu>
           </>

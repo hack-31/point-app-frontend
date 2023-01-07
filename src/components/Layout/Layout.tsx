@@ -10,7 +10,7 @@ type MainLayoutProps = {
  * メインレイアウト
  * @param param0 子コンポーネント
  */
-export const MainLayout = ({ children }: MainLayoutProps) => {
+export const MainLayout = React.memo(({ children }: MainLayoutProps) => {
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
@@ -35,4 +35,4 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       <footer>copy light, point app. inc.</footer>
     </Box>
   );
-};
+});

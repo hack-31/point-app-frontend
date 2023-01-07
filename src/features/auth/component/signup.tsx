@@ -113,7 +113,7 @@ export const Signup: React.FC = React.memo(() => {
             placeholder="太郎"
             type="text"
             variant="outlined"
-            {...register("familyNameKana", {
+            {...register("firstName", {
               required: { value: true, message: ERR_REQUIRE_MESSAGE },
             })}
           />
@@ -128,7 +128,7 @@ export const Signup: React.FC = React.memo(() => {
             placeholder="ヤマダ"
             type="text"
             variant="outlined"
-            {...register("firstName", {
+            {...register("familyNameKana", {
               required: { value: true, message: ERR_REQUIRE_MESSAGE },
             })}
           />
