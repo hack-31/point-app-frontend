@@ -6,10 +6,10 @@ import {
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH,
 } from "@/const/const";
+import { ErrResponse } from "@/lib/axios";
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -50,9 +50,7 @@ export const Signup: React.FC = React.memo(() => {
         setTemporaryUserId(res.data.data.temporaryUserId);
         handleOpen();
       },
-      onError: (
-        err: AxiosError<{ statusCode: number; title: string; message: string }>
-      ) => {
+      onError: (err: ErrResponse) => {
         if (err.response?.status === 409) {
           setError(
             "email",

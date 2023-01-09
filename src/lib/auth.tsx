@@ -76,7 +76,7 @@ type AuthUser = {
 
 export const { AuthProvider, useAuth, AuthConsumer } = initReactQueryAuth<
   AuthUser | null,
-  AxiosError<ErrResponse>,
+  ErrResponse,
   LoginCredentialsDTO,
   RegisterCredentialsDTO
 >(authConfig);
