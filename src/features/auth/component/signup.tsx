@@ -115,9 +115,7 @@ export const Signup: React.FC = React.memo(() => {
               required: { value: true, message: ERR_REQUIRE_MESSAGE },
             })}
           />
-          <Box sx={{ color: "error.main" }}>
-            {errors.familyNameKana?.message}
-          </Box>
+          <Box sx={{ color: "error.main" }}>{errors.firstName?.message}</Box>
         </Box>
         <Box marginBottom="24px">
           <Box mb="4px">姓カナ（全角）</Box>
@@ -130,7 +128,9 @@ export const Signup: React.FC = React.memo(() => {
               required: { value: true, message: ERR_REQUIRE_MESSAGE },
             })}
           />
-          <Box sx={{ color: "error.main" }}>{errors.firstName?.message}</Box>
+          <Box sx={{ color: "error.main" }}>
+            {errors.familyNameKana?.message}
+          </Box>
         </Box>
         <Box marginBottom="24px">
           <Box mb="4px">名カナ（全角）</Box>
