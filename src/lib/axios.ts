@@ -1,7 +1,13 @@
 import { API_URL } from "@/config";
 import storage from "@/utils/storage";
-import Axios, { AxiosRequestConfig } from "axios";
-
+import Axios, { AxiosError, AxiosRequestConfig } from "axios";
+/**
+ * 各リクエストごとにヘッダーを設定するためのインターセプター関数
+ * 各リクエスト毎にこの関数が走る
+ *
+ * @param config リクエストヘッダー一覧
+ * @returns 修正したリクエストヘッダー
+ */
 function authRequestInterceptor(config: AxiosRequestConfig) {
   const token = storage.getToken() as string;
 
@@ -37,14 +43,15 @@ axios.interceptors.response.use(
   }
 );
 
+/** 成功レスポンス(axiosの型は含まない) */
 export type SuccessResponse<T> = {
   statusCode: number;
   message: string;
   data: T;
 };
-
-export type ErrResponse = {
+/** 失敗レスポンス(axiosの型を含む) */
+export type ErrResponse = AxiosError<{
   statusCode: number;
   title: string;
   message: string;
-};
+}>;

@@ -6,10 +6,10 @@ import {
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH,
 } from "@/const/const";
+import { ErrResponse } from "@/lib/axios";
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -50,9 +50,7 @@ export const Signup: React.FC = React.memo(() => {
         setTemporaryUserId(res.data.data.temporaryUserId);
         handleOpen();
       },
-      onError: (
-        err: AxiosError<{ statusCode: number; title: string; message: string }>
-      ) => {
+      onError: (err: ErrResponse) => {
         if (err.response?.status === 409) {
           setError(
             "email",
@@ -117,9 +115,7 @@ export const Signup: React.FC = React.memo(() => {
               required: { value: true, message: ERR_REQUIRE_MESSAGE },
             })}
           />
-          <Box sx={{ color: "error.main" }}>
-            {errors.familyNameKana?.message}
-          </Box>
+          <Box sx={{ color: "error.main" }}>{errors.firstName?.message}</Box>
         </Box>
         <Box marginBottom="24px">
           <Box mb="4px">姓カナ（全角）</Box>
@@ -132,7 +128,9 @@ export const Signup: React.FC = React.memo(() => {
               required: { value: true, message: ERR_REQUIRE_MESSAGE },
             })}
           />
-          <Box sx={{ color: "error.main" }}>{errors.firstName?.message}</Box>
+          <Box sx={{ color: "error.main" }}>
+            {errors.familyNameKana?.message}
+          </Box>
         </Box>
         <Box marginBottom="24px">
           <Box mb="4px">名カナ（全角）</Box>
