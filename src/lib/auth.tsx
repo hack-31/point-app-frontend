@@ -4,11 +4,11 @@ import {
   LoginCredentialsDTO,
   loginWithEmailAndPassword,
 } from "@/features/auth/api/login";
+import { signout } from "@/features/auth/api/logout";
 import { ErrResponse } from "@/lib/axios";
 import { initReactQueryAuth } from "@/lib/react-query-auth";
 import storage from "@/utils/storage";
 import { Box, LinearProgress } from "@mui/material";
-import { AxiosError } from "axios";
 
 async function loadUser() {
   if (!storage.getToken()) return null;
@@ -39,6 +39,7 @@ async function registerFn(data: RegisterCredentialsDTO) {
 }
 
 async function logoutFn() {
+  await signout();
   storage.clearToken();
   window.location.assign(window.location.origin as unknown as string);
 }

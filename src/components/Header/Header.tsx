@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useHandleMenu } from "./hooks";
 
 export const Header = React.memo(() => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { anchorEl, closeMenu, openMenu } = useHandleMenu();
   const navigate = useNavigate();
 
@@ -59,7 +59,14 @@ export const Header = React.memo(() => {
               >
                 アカウント情報
               </MenuItem>
-              <MenuItem onClick={closeMenu}>サインアウト</MenuItem>
+              <MenuItem
+                onClick={async () => {
+                  closeMenu();
+                  logout();
+                }}
+              >
+                サインアウト
+              </MenuItem>
             </Menu>
           </>
         )}
