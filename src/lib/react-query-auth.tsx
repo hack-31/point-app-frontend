@@ -35,7 +35,16 @@ export interface AuthContextValue<
   refetchUser: (
     options?: RefetchOptions | undefined
   ) => Promise<QueryObserverResult<User, Error>>;
+  /**　ユーザ情報取得エラー */
   error: Error | null;
+  /** ユーザ登録時のエラー */
+  registerError: Error | null;
+  /** ログアウト時のエラー */
+  logoutError: Error | null;
+  /** ログイン時のエラー */
+  loginError: Error | null;
+  /** エラークリア(register, login, logout) */
+  clearError: () => void;
 }
 
 export interface AuthProviderProps {
@@ -83,6 +92,7 @@ export function initReactQueryAuth<
       queryKey: [key],
       queryFn: loadUser,
       useErrorBoundary: false,
+      suspense: true,
     });
 
     const setUser = React.useCallback(
@@ -114,14 +124,24 @@ export function initReactQueryAuth<
       },
     });
 
+    /**
+     * 変異の内部状態をクリーンにする（すなわち、変異を初期状態にリセットする）関数
+     * login, logout, registerの3つのリセット
+     */
+    const clearError = () => {
+      loginMutation.reset();
+      logoutMutation.reset();
+      registerMutation.reset();
+    };
+
     const value = React.useMemo(
       () => ({
         user,
-        error:
-          (registerMutation.error as Error) ||
-          (logoutMutation.error as Error) ||
-          (loginMutation.error as Error) ||
-          error,
+        error,
+        clearError,
+        registerError: registerMutation.error as Error,
+        logoutError: logoutMutation.error as Error,
+        loginError: loginMutation.error as Error,
         refetchUser: refetch,
         login: loginMutation.mutateAsync,
         isLoggingIn: loginMutation.isLoading,
@@ -134,6 +154,10 @@ export function initReactQueryAuth<
         user,
         error,
         refetch,
+        clearError,
+        registerMutation.error,
+        logoutMutation.error,
+        loginMutation.error,
         loginMutation.mutateAsync,
         loginMutation.isLoading,
         logoutMutation.mutateAsync,
