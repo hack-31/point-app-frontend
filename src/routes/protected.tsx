@@ -7,6 +7,7 @@ import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { Suspense } from "react";
 import { Outlet, RouteObject } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             justifyContent="center"
             height="100vh"
           >
+            <ToastContainer />
             <CircularProgress />
           </Box>
         }

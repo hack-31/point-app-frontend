@@ -3,6 +3,7 @@ import { useAuth } from "@/lib/auth";
 import { createBrowserRouter, redirect, RouteObject } from "react-router-dom";
 import { getProtectedRoutes } from "./protected";
 import { publicRoutes } from "./public";
+import "react-toastify/dist/ReactToastify.css";
 
 /**
  * 全体のルーティングの設定
