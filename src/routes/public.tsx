@@ -6,6 +6,7 @@ import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { Suspense } from "react";
 import { Outlet, RouteObject } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const { SignupPage } = lazyImport(() => import("@/pages/Signup"), "SignupPage");
 
@@ -24,6 +25,7 @@ const App = () => {
           </Box>
         }
       >
+        <ToastContainer />
         <Outlet />
       </Suspense>
     </MainLayout>

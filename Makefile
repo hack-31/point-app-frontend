@@ -31,6 +31,9 @@ logs: ## Tail docker compose logs
 ps: ## Check container status
 	docker compose ps
 
+ci: ## パッケージの導入
+	docker compose run --rm node yarn --frozen-lockfile
+
 help: ## Show options
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'

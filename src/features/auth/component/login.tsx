@@ -29,7 +29,7 @@ export const Login: React.FC = React.memo(() => {
     },
   });
   const navigate = useNavigate();
-  const { login, isLoggingIn, error } = useAuth();
+  const { login, isLoggingIn } = useAuth();
 
   return (
     <Box className="App" mx="auto" maxWidth="400px" mt="100px">
@@ -82,7 +82,6 @@ export const Login: React.FC = React.memo(() => {
             })}
           />
           <Box sx={{ color: "error.main" }}>{errors.password?.message}</Box>
-          <Box color="error.main">{error?.response?.data.message}</Box>
         </Box>
         <LoadingButton
           size="large"

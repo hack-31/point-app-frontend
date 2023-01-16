@@ -66,9 +66,6 @@ export const AuthCodeModal = React.memo(
             <Box sx={{ color: "error.main" }}>
               {errors.confirmCode?.message}
             </Box>
-            <Box sx={{ color: "error.main" }}>
-              {auth.error?.response?.data.message}
-            </Box>
           </DialogContent>
           <DialogActions>
             <Button type="button" onClick={closeModal}>
