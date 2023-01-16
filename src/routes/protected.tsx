@@ -20,11 +20,11 @@ const App = () => {
             justifyContent="center"
             height="100vh"
           >
-            <ToastContainer />
             <CircularProgress />
           </Box>
         }
       >
+        <ToastContainer />
         <Outlet />
       </Suspense>
     </MainLayout>
