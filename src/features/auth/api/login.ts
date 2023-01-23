@@ -10,5 +10,5 @@ export type LoginCredentialsResponse = SuccessResponse<{
 }>;
 
 export const loginWithEmailAndPassword = (data: LoginCredentialsDTO) => {
-  return axios.post<LoginCredentialsResponse>("/tokens", data);
+  return axios.post<LoginCredentialsResponse>("/signin", data);
 };
