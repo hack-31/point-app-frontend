@@ -48,6 +48,8 @@ export const PointTransactionModal = React.memo(
           closeModal();
           await refetchUser();
           await queryClient.invalidateQueries(queryKey);
+          // NOTE: ステータスコード201なので、スナックバー出るはずだが、出ないので、
+          // 明示的にスナックバーを表示
           snackbar.success(res.data.message);
         },
         onError: (err: ErrResponse) => {
