@@ -5,10 +5,21 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { getUsers, queryKey } from "../api/getUsers";
 
+type Props = {
+  onClick: (user: {
+    acquisitionPoint: number;
+    email: string;
+    familyName: string;
+    familyNameKana: string;
+    firstName: string;
+    firstNameKana: string;
+    id: number;
+  }) => void;
+};
 /**
  * ユーザ一覧表示機能コンポーネント
  */
-export const Users = React.memo(() => {
+export const Users = React.memo(({ onClick }: Props) => {
   const { user } = useAuth();
   const { data } = useQuery(queryKey, getUsers);
 
@@ -45,7 +56,7 @@ export const Users = React.memo(() => {
         {data?.data.data.users.map((user) => (
           <Grid item xs={12} sm={6} md={4} key={user.id}>
             <Card>
-              <CardActionArea>
+              <CardActionArea onClick={() => onClick(user)}>
                 <CardContent>
                   <Box
                     display="flex"
