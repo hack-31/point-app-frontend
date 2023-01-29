@@ -3,11 +3,11 @@ import { useCallback, useState } from "react";
 /**
  * 確認ダイアログの開閉を扱うフック
  * @returns handleClose モーダルを閉じる
- * @returns ChandleOpen モーダルを開く
- * @returns true: 開, false: 閉
+ * @returns handleOpen モーダルを開く
+ * @returns isOpenDialog true: 開, false: 閉
  */
-export const useHandleConfirmDialog = () => {
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
+export const useHandleDialog = () => {
+  const [isOpenDialog, setOpenDialog] = useState<boolean>(false);
 
   const handleClose = useCallback(() => {
     setOpenDialog(false);
@@ -17,5 +17,5 @@ export const useHandleConfirmDialog = () => {
     setOpenDialog(true);
   }, [setOpenDialog]);
 
-  return { handleClose, openDialog, handleOpen };
+  return { handleClose, isOpenDialog, handleOpen };
 };
