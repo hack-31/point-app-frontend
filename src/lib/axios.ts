@@ -1,7 +1,8 @@
 import { API_URL } from "@/config";
 import storage from "@/utils/storage";
-import Axios, { AxiosError, AxiosRequestConfig } from "axios";
+import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
+import { snackbar } from "./toast";
 /**
  * 各リクエストごとにヘッダーを設定するためのインターセプター関数
  * 各リクエスト毎にこの関数が走る
@@ -35,15 +36,15 @@ export const axios = Axios.create({
 
 axios.interceptors.request.use(authRequestInterceptor);
 axios.interceptors.response.use(
-  (response) => {
+  (response: AxiosResponse<SuccessResponse<unknown>>) => {
+    if (response.data.statusCode === 201) {
+      snackbar.success(response.data.message);
+    }
     return response;
   },
   (error: ErrResponse) => {
     // エラーのatoms持たせて、ここで突っ込めば共通化できる
-    toast.error(error.response?.data.message, {
-      position: "top-right",
-      autoClose: 10000,
-    });
+    snackbar.error(error.response?.data.message);
     return Promise.reject(error);
   }
 );

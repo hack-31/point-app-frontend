@@ -1,4 +1,3 @@
-import { Signup } from "@/features/auth";
 import { Login } from "@/features/auth/component/login";
 import { Box } from "@mui/material";
 

@@ -6,6 +6,7 @@ import {
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH,
 } from "@/const/const";
+import { useHandleDialog } from "@/hooks";
 import { ErrResponse } from "@/lib/axios";
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
@@ -16,7 +17,6 @@ import {
   registerTemporaryWithEmailAndPassword,
   TemporaryRegisterCredentialsDTO,
 } from "../api/temporaryRegister";
-import { useHandleConfirmDialog } from "../hooks/handleDialog";
 import { AuthCodeModal } from "./authCodeModal";
 
 /**
@@ -24,7 +24,7 @@ import { AuthCodeModal } from "./authCodeModal";
  */
 export const Signup: React.FC = React.memo(() => {
   const [temporaryUserId, setTemporaryUserId] = React.useState<string>("");
-  const { handleClose, handleOpen, openDialog } = useHandleConfirmDialog();
+  const { handleClose, handleOpen, isOpenDialog } = useHandleDialog();
   const {
     register,
     handleSubmit,
@@ -181,7 +181,7 @@ export const Signup: React.FC = React.memo(() => {
       </form>
 
       <AuthCodeModal
-        open={openDialog}
+        open={isOpenDialog}
         email={getValues("email")}
         closeModal={handleClose}
         temporaryUserId={temporaryUserId}
