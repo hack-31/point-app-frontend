@@ -2,6 +2,7 @@ import { ERR_REQUIRE_MESSAGE } from "@/const/const";
 import { queryKey } from "@/features/users/api/getUsers";
 import { useAuth } from "@/lib/auth";
 import { ErrResponse } from "@/lib/axios";
+import { snackbar } from "@/lib/toast";
 import { LoadingButton } from "@mui/lab";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -43,10 +44,11 @@ export const PointTransactionModal = React.memo(
     const { mutate, isLoading } = useMutation(
       (data: SendPointDTO) => sendPoint(data),
       {
-        onSuccess: (res) => {
+        onSuccess: async (res) => {
           closeModal();
-          refetchUser();
-          queryClient.invalidateQueries(queryKey);
+          await refetchUser();
+          await queryClient.invalidateQueries(queryKey);
+          snackbar.success(res.data.message);
         },
         onError: (err: ErrResponse) => {
           setError(
