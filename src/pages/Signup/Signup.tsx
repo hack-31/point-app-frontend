@@ -1,5 +1,6 @@
-import { Signup } from "@/features/auth";
 import { Box } from "@mui/material";
+
+import { Signup } from "@/features/auth";
 
 /**
  * path: /singup

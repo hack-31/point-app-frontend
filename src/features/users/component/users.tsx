@@ -1,8 +1,10 @@
-import { useAuth } from "@/lib/auth";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Box, Card, CardActionArea, CardContent, Grid } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+
+import { useAuth } from "@/lib/auth";
+
 import { getUsers, queryKey } from "../api/getUsers";
 
 type Props = {

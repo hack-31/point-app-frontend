@@ -1,5 +1,6 @@
-import { Login } from "@/features/auth/component/login";
 import { Box } from "@mui/material";
+
+import { Login } from "@/features/auth/component/login";
 
 /**
  * path: /login

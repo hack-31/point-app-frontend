@@ -1,8 +1,3 @@
-import { ERR_REQUIRE_MESSAGE } from "@/const/const";
-import { queryKey } from "@/features/users/api/getUsers";
-import { useAuth } from "@/lib/auth";
-import { ErrResponse } from "@/lib/axios";
-import { snackbar } from "@/lib/toast";
 import { LoadingButton } from "@mui/lab";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -14,6 +9,13 @@ import TextField from "@mui/material/TextField";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
+
+import { ERR_REQUIRE_MESSAGE } from "@/const/const";
+import { queryKey } from "@/features/users/api/getUsers";
+import { useAuth } from "@/lib/auth";
+import { ErrResponse } from "@/lib/axios";
+import * as snackbar from "@/lib/toast";
+
 import { sendPoint, SendPointDTO } from "../api/sendPoint";
 
 type AuthCodeModalProps = {

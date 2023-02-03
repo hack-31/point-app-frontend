@@ -1,4 +1,3 @@
-import { useAuth } from "@/lib/auth";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
@@ -8,6 +7,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { useAuth } from "@/lib/auth";
+
 import { useHandleMenu } from "./hooks";
 
 export const Header = React.memo(() => {

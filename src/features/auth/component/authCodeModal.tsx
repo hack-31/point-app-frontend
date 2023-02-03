@@ -1,5 +1,3 @@
-import { ERR_REQUIRE_MESSAGE } from "@/const/const";
-import { useAuth } from "@/lib/auth";
 import { LoadingButton } from "@mui/lab";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -12,6 +10,9 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+
+import { ERR_REQUIRE_MESSAGE } from "@/const/const";
+import { useAuth } from "@/lib/auth";
 
 type AuthCodeModalProps = {
   open: boolean;

@@ -1,6 +1,3 @@
-import { AuthProvider } from "@/lib/auth";
-import { queryClient } from "@/lib/react-query";
-import { getAppRoutes } from "@/routes";
 import {
   Box,
   CircularProgress,
@@ -11,6 +8,10 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import * as React from "react";
 import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+
+import { AuthProvider } from "@/lib/auth";
+import { queryClient } from "@/lib/react-query";
+import { getAppRoutes } from "@/routes";
 
 /**
  * プロパイダー
