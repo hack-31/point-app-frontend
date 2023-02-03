@@ -16,6 +16,13 @@ $ make up
 
 [http://localhost:3000/](http://localhost:3000/)にアクセス
 
+# フォーマット・リンター
+
+```sh
+$ make format
+$ make lint
+```
+
 # モック API
 
 モック API として[swagger 定義](https://hack-31.github.io/point-app-backend/openapi.yml)を元に作成しております。
