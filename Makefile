@@ -19,6 +19,12 @@ install: ## package install
 remock: ## restart mock server
 	docker compose restart api
 
+lint: ## リンター
+	docker compose run --rm node yarn lint
+
+format: ## フォーマット
+	docker compose run --rm node yarn format
+
 up: ## Do docker compose up with hot reload
 	docker compose up -d
 

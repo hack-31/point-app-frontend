@@ -1,50 +1,36 @@
+// eslint-disable-next-line no-undef
 module.exports = {
-    env: {
-        browser: true,
-        es2021: true,
-        node: true,
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    "prettier", // prettierとeslintとの衝突回避
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    //
+    // "plugin:import/recommended",
+    // "plugin:import/typescript",
+    // "plugin:import/warnings",
+  ],
+  overrides: [],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true,
     },
-    extends: [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:import/recommended",
-        "plugin:@typescript-eslint/recommended",
-    ],
-    overrides: [],
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-    },
-    plugins: ["react", "@typescript-eslint"],
-    rules: {
-        "react/jsx-wrap-multilines": "off",
-        "prefer-promise-reject-errors": "off",
-        "react/jsx-filename-extension": "off",
-        "react/prop-types": "off",
-        "no-return-assign": "off",
-        "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"],
-        "import/extensions": [
-            "error",
-            {
-                js: "never",
-                jsx: "never",
-                ts: "never",
-                tsx: "never",
-            },
-        ],
-        "no-param-reassign": "off",
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "error",
-        "@typescript-eslint/ban-types": "off",
-        "react/jsx-props-no-spreading": "off",
-        "react/jsx-curly-newline": "off",
-        "react/jsx-one-expression-per-line": "off",
-        "react/require-default-props": "off",
-        "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off",
-        "import/no-extraneous-dependencies": "off",
-        "no-shadow": "off",
-    },
+  },
+  settings: { react: { version: "detect" } },
+  plugins: ["react", "@typescript-eslint", "simple-import-sort"],
+  rules: {
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off",
+    //
+    // "import/newline-after-import": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+  },
 };
