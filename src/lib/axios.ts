@@ -1,8 +1,10 @@
+import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+
 import { API_URL } from "@/config";
 import storage from "@/utils/storage";
-import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { toast } from "react-toastify";
-import { snackbar } from "./toast";
+
+import * as snackbar from "./toast";
+
 /**
  * 各リクエストごとにヘッダーを設定するためのインターセプター関数
  * 各リクエスト毎にこの関数が走る

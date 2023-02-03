@@ -1,12 +1,13 @@
-import React from "react";
+/* eslint @typescript-eslint/no-explicit-any: 0 */
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  UseMutateAsyncFunction,
   QueryObserverResult,
   RefetchOptions,
+  UseMutateAsyncFunction,
+  useMutation,
+  useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
+import React from "react";
 
 export interface AuthProviderConfig<User = unknown, Error = unknown> {
   key?: string;
@@ -35,7 +36,7 @@ export interface AuthContextValue<
   refetchUser: (
     options?: RefetchOptions | undefined
   ) => Promise<QueryObserverResult<User, Error>>;
-  /**　ユーザ情報取得エラー */
+  /** ユーザ情報取得エラー */
   error: Error | null;
   /** ユーザ登録時のエラー */
   registerError: Error | null;

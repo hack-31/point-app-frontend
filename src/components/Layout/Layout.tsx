@@ -1,6 +1,7 @@
-import { Header } from "@/components/Header";
 import Box from "@mui/material/Box";
 import * as React from "react";
+
+import { Header } from "@/components/Header";
 
 type MainLayoutProps = {
   children: React.ReactNode;

@@ -1,13 +1,14 @@
-import { Error } from "@/components/Error";
-import { MainLayout } from "@/components/Layout";
-import { useAuth } from "@/lib/auth";
-import { AccountPage } from "@/pages/Account";
-import { UsersPage } from "@/pages/Users";
 import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { Suspense } from "react";
 import { Outlet, RouteObject } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+
+import { Error } from "@/components/Error";
+import { MainLayout } from "@/components/Layout";
+import { useAuth } from "@/lib/auth";
+import { AccountPage } from "@/pages/Account";
+import { UsersPage } from "@/pages/Users";
 
 const App = () => {
   return (

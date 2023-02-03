@@ -1,6 +1,7 @@
-import { Account } from "@/features/account";
 import { Box } from "@mui/material";
 import React from "react";
+
+import { Account } from "@/features/account";
 
 /**
  * path: /account

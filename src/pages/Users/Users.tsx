@@ -1,8 +1,9 @@
+import { Box } from "@mui/material";
+import React from "react";
+
 import { PointTransactionModal } from "@/features/pointTransaction";
 import { Users } from "@/features/users";
 import { useHandleDialog } from "@/hooks";
-import { Box } from "@mui/material";
-import React from "react";
 
 /**
  * path: /users

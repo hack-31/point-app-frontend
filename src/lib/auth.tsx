@@ -1,3 +1,5 @@
+import { Box, LinearProgress } from "@mui/material";
+
 import { RegisterCredentialsDTO, registerUser } from "@/features/auth";
 import { getUser } from "@/features/auth/api/getUser";
 import {
@@ -8,7 +10,6 @@ import { signout } from "@/features/auth/api/logout";
 import { ErrResponse } from "@/lib/axios";
 import { initReactQueryAuth } from "@/lib/react-query-auth";
 import storage from "@/utils/storage";
-import { Box, LinearProgress } from "@mui/material";
 
 async function loadUser() {
   if (!storage.getToken()) return null;
