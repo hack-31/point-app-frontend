@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import { Error } from "@/components/Error";
 import { MainLayout } from "@/components/Layout";
 import { LoginPage } from "@/pages/Login";
+import { PasswordResetPage } from "@/pages/PasswordReset";
 import { lazyImport } from "@/utils/lazyImport";
 
 const { SignupPage } = lazyImport(() => import("@/pages/Signup"), "SignupPage");
@@ -46,7 +47,7 @@ export const publicRoutes: RouteObject[] = [
         children: [
           { path: "signup", element: <SignupPage /> },
           { path: "login", element: <LoginPage /> },
-          { path: "password-reset", element: <>パスワードリセット</> },
+          { path: "password-reset", element: <PasswordResetPage /> },
         ],
       },
     ],
