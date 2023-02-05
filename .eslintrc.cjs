@@ -9,10 +9,6 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    //
-    // "plugin:import/recommended",
-    // "plugin:import/typescript",
-    // "plugin:import/warnings",
   ],
   overrides: [],
   parser: "@typescript-eslint/parser",
@@ -28,8 +24,6 @@ module.exports = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "react/display-name": "off",
-    //
-    // "import/newline-after-import": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
   },

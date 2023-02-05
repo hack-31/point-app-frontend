@@ -1,9 +1,8 @@
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { API_URL } from "@/config";
+import * as snackbar from "@/lib/toast";
 import storage from "@/utils/storage";
-
-import * as snackbar from "./toast";
 
 /**
  * 各リクエストごとにヘッダーを設定するためのインターセプター関数
