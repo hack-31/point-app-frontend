@@ -79,10 +79,13 @@ export const SideBarLayout = React.memo(({ children }: Props) => {
         </List>
       </Box>
       <Box
-        flex={4}
+        flex={3}
         sx={[
           ({ breakpoints }) => ({
             [breakpoints.up("sm")]: {
+              ml: "50px",
+            },
+            [breakpoints.up("md")]: {
               ml: "100px",
             },
           }),
