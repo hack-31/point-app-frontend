@@ -1,1 +1,1 @@
-export * from "./arrowLink";
+export * from "./ArrowLink";
