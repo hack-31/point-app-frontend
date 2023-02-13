@@ -4,14 +4,16 @@ import React from "react";
 import { useAuth } from "@/lib/auth";
 
 import { Grid2Layout } from "./grid2Layout";
+import { SideBarLayout } from "./sideBarLayout";
 
 /**
  * アカウント情報
  */
 export const Account: React.FC = React.memo(() => {
   const { user } = useAuth();
+
   return (
-    <Box className="App" mx="auto" maxWidth="800px" mt="100px">
+    <SideBarLayout>
       <Box component="h1" color="primary.main">
         アカウント情報
       </Box>
@@ -50,6 +52,6 @@ export const Account: React.FC = React.memo(() => {
         title="累計獲得ポイント"
         value={`${user?.acquisitionPoint} pt`}
       />
-    </Box>
+    </SideBarLayout>
   );
 });

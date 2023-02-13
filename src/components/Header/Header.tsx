@@ -1,4 +1,5 @@
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -18,8 +19,19 @@ export const Header = React.memo(() => {
   const navigate = useNavigate();
 
   return (
-    <AppBar position="fixed">
+    <AppBar
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar>
+        <IconButton
+          size="large"
+          aria-label="戻る"
+          onClick={() => navigate(-1)}
+          color="inherit"
+        >
+          <ArrowBackIosIcon />
+        </IconButton>
         <Typography
           variant="h6"
           noWrap

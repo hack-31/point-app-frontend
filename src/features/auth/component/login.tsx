@@ -4,6 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { ArrowLink } from "@/components/ArrowLink";
 import {
   ERR_MAIL_FORMAT_MESSAGE,
   ERR_REQUIRE_MESSAGE,
@@ -13,8 +14,6 @@ import {
   MIN_PASSWORD_LENGTH,
 } from "@/const/const";
 import { useAuth } from "@/lib/auth";
-
-import { ArrowLink } from "./arrowLink";
 
 /**
  * ログイン機能
