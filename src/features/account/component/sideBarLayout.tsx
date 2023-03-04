@@ -23,6 +23,7 @@ type Props = {
 export const SideBarLayout = React.memo(({ children }: Props) => {
   const navigationList = [
     { link: "account", text: "アカウント情報" },
+    { link: "profile", text: "アカウント更新" },
     { link: "password-update", text: "パスワード更新" },
   ];
   // レスポンシブかどうかを取得する
