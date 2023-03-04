@@ -3,12 +3,13 @@ import { useForm } from 'react-hook-form';
 import { Box, TextField } from '@mui/material';
 import { SideBarLayout } from './sideBarLayout';
 import { LoadingButton } from '@mui/lab';
+import { ERR_REQUIRE_MESSAGE } from '@/const/const';
 
 /**
  * アカウント更新
  */
 export const AccountUpdate: React.FC = React.memo(() => {
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register, formState: { errors }, } = useForm({
     defaultValues: {
       familyName: "",
       familyNameKana: "",
@@ -26,39 +27,51 @@ export const AccountUpdate: React.FC = React.memo(() => {
 
       <form onSubmit={handleSubmit((data) => console.log('送信データ', data))}>
         <Box marginBottom="24px">
-          <Box mb="4px">苗字</Box>
+          <Box mb="4px">姓（全角）</Box>
           <TextField
             fullWidth
             variant="outlined"
-            {...register("familyName")}
+            {...register("familyName", {
+              required: { value: true, message: ERR_REQUIRE_MESSAGE },
+            })}
           />
+          <Box sx={{ color: "error.main" }}>{errors.familyName?.message}</Box>
         </Box>
 
         <Box marginBottom="24px">
-          <Box mb="4px">苗字カナ</Box>
+          <Box mb="4px">名（全角）</Box>
           <TextField
             fullWidth
             variant="outlined"
-            {...register("familyNameKana")}
+            {...register("firstName", {
+              required: { value: true, message: ERR_REQUIRE_MESSAGE },
+            })}
           />
+          <Box sx={{ color: "error.main" }}>{errors.firstName?.message}</Box>
         </Box>
 
         <Box marginBottom="24px">
-          <Box mb="4px">名前</Box>
+          <Box mb="4px">姓カナ（全角）</Box>
           <TextField
             fullWidth
             variant="outlined"
-            {...register("firstName")}
+            {...register("familyNameKana", {
+              required: { value: true, message: ERR_REQUIRE_MESSAGE },
+            })}
           />
+          <Box sx={{ color: "error.main" }}>{errors.familyNameKana?.message}</Box>
         </Box>
 
         <Box marginBottom="24px">
-          <Box mb="4px">名前カナ</Box>
+          <Box mb="4px">名カナ（全角）</Box>
           <TextField
             fullWidth
             variant="outlined"
-            {...register("firstNameKana")}
+            {...register("firstNameKana", {
+              required: { value: true, message: ERR_REQUIRE_MESSAGE },
+            })}
           />
+          <Box sx={{ color: "error.main" }}>{errors.firstNameKana?.message}</Box>
         </Box>
 
         <Box display="flex" justifyContent="flex-end">
