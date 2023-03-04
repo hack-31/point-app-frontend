@@ -1,8 +1,14 @@
 import React from 'react';
+import { Box } from '@mui/material';
+import { AccountUpdate } from '@/features/account';
 
 /**
  * path: /profile
  */
-export const AccountUpdate = React.memo(() => {
-  return <>アカウント変更</>
+export const AccountUpdatePage = React.memo(() => {
+  return (
+    <Box mx="10px">
+      <AccountUpdate />
+    </Box>
+  )
 });
