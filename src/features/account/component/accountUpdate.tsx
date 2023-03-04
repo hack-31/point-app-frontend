@@ -4,17 +4,19 @@ import { Box, TextField } from '@mui/material';
 import { SideBarLayout } from './sideBarLayout';
 import { LoadingButton } from '@mui/lab';
 import { ERR_REQUIRE_MESSAGE } from '@/const/const';
+import { useAuth } from '@/lib/auth';
 
 /**
  * アカウント更新
  */
 export const AccountUpdate: React.FC = React.memo(() => {
+  const { user } = useAuth();
   const { handleSubmit, register, formState: { errors }, } = useForm({
     defaultValues: {
-      familyName: "",
-      familyNameKana: "",
-      firstName: "",
-      firstNameKana: "",
+      familyName: user?.familyName || '',
+      familyNameKana: user?.familyNameKana || "",
+      firstName: user?.firstName || "",
+      firstNameKana: user?.firstNameKana || "",
     },
   });
   return (
