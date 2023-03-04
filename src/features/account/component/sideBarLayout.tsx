@@ -56,17 +56,17 @@ export const SideBarLayout = React.memo(({ children }: Props) => {
         flex={1}
       >
         <List>
-          {navigationList.map((navigateion) => (
+          {navigationList.map((navigation) => (
             <NavLink
-              key={navigateion.link}
-              to={`/${navigateion.link}`}
+              key={navigation.link}
+              to={`/${navigation.link}`}
               className={({ isActive, isPending }) =>
                 isActive ? "active" : isPending ? "pending" : ""
               }
             >
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemText primary={navigateion.text} />
+                  <ListItemText primary={navigation.text} />
                   {isMobile ? (
                     <KeyboardArrowDownIcon />
                   ) : (
