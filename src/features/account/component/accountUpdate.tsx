@@ -8,12 +8,15 @@ import { useAuth } from '@/lib/auth';
 import { useMutation } from '@tanstack/react-query';
 import { updateAccount, UpdateAccountDTO } from '../api/updateAccount';
 import { ErrResponse } from '@/lib/axios';
+import { useNavigate } from 'react-router-dom';
+
 
 /**
  * アカウント更新
  */
 export const AccountUpdate: React.FC = React.memo(() => {
-  const { user } = useAuth();
+  const history = useNavigate();
+  const { user, refetchUser } = useAuth();
   const { handleSubmit, register, formState: { errors } } = useForm({
     defaultValues: {
       familyName: user?.familyName || '',
@@ -26,9 +29,9 @@ export const AccountUpdate: React.FC = React.memo(() => {
   const { isLoading, mutate } = useMutation((data: UpdateAccountDTO) => updateAccount(data),
     {
       onSuccess: () => {
-      },
-      onError: (err: ErrResponse) => {
-        console.log(err);
+        // TODO: 変更時のみスナックバーが表示されない
+        refetchUser();
+        history("/account");
       },
     }
   )
