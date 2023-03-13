@@ -1,6 +1,7 @@
-import React from 'react';
-import { Box } from '@mui/material';
-import { AccountUpdate } from '@/features/account';
+import { Box } from "@mui/material";
+import React from "react";
+
+import { AccountUpdate } from "@/features/account";
 
 /**
  * path: /profile
@@ -10,5 +11,5 @@ export const AccountUpdatePage = React.memo(() => {
     <Box mx="10px">
       <AccountUpdate />
     </Box>
-  )
+  );
 });

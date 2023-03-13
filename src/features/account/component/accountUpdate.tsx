@@ -1,15 +1,15 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Box, TextField } from '@mui/material';
-import { SideBarLayout } from './sideBarLayout';
-import { LoadingButton } from '@mui/lab';
-import { ERR_REQUIRE_MESSAGE, MAX_USERNAME_LENGTH } from '@/const/const';
-import { useAuth } from '@/lib/auth';
-import { useMutation } from '@tanstack/react-query';
-import { updateAccount, UpdateAccountDTO } from '../api/updateAccount';
-import { ErrResponse } from '@/lib/axios';
-import { useNavigate } from 'react-router-dom';
+import { LoadingButton } from "@mui/lab";
+import { Box, TextField } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
+import { ERR_REQUIRE_MESSAGE, MAX_USERNAME_LENGTH } from "@/const/const";
+import { useAuth } from "@/lib/auth";
+
+import { updateAccount, UpdateAccountDTO } from "../api/updateAccount";
+import { SideBarLayout } from "./sideBarLayout";
 
 /**
  * アカウント更新
@@ -17,16 +17,21 @@ import { useNavigate } from 'react-router-dom';
 export const AccountUpdate: React.FC = React.memo(() => {
   const history = useNavigate();
   const { user, refetchUser } = useAuth();
-  const { handleSubmit, register, formState: { errors } } = useForm({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      familyName: user?.familyName || '',
+      familyName: user?.familyName || "",
       familyNameKana: user?.familyNameKana || "",
       firstName: user?.firstName || "",
       firstNameKana: user?.firstNameKana || "",
     },
   });
 
-  const { isLoading, mutate } = useMutation((data: UpdateAccountDTO) => updateAccount(data),
+  const { isLoading, mutate } = useMutation(
+    (data: UpdateAccountDTO) => updateAccount(data),
     {
       onSuccess: () => {
         // TODO: 変更時のみスナックバーが表示されない
@@ -34,7 +39,7 @@ export const AccountUpdate: React.FC = React.memo(() => {
         history("/account");
       },
     }
-  )
+  );
   return (
     <SideBarLayout>
       <Box component="h1" color="primary.main">
@@ -89,7 +94,9 @@ export const AccountUpdate: React.FC = React.memo(() => {
               },
             })}
           />
-          <Box sx={{ color: "error.main" }}>{errors.familyNameKana?.message}</Box>
+          <Box sx={{ color: "error.main" }}>
+            {errors.familyNameKana?.message}
+          </Box>
         </Box>
 
         <Box marginBottom="24px">
@@ -105,7 +112,9 @@ export const AccountUpdate: React.FC = React.memo(() => {
               },
             })}
           />
-          <Box sx={{ color: "error.main" }}>{errors.firstNameKana?.message}</Box>
+          <Box sx={{ color: "error.main" }}>
+            {errors.firstNameKana?.message}
+          </Box>
         </Box>
 
         <Box display="flex" justifyContent="flex-end">
@@ -120,7 +129,7 @@ export const AccountUpdate: React.FC = React.memo(() => {
                 },
               }),
             ]}
-            variant='contained'
+            variant="contained"
             type="submit"
             color="primary"
             loading={isLoading}
@@ -131,5 +140,5 @@ export const AccountUpdate: React.FC = React.memo(() => {
         <Box my="80px" />
       </form>
     </SideBarLayout>
-  )
-})
+  );
+});

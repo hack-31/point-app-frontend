@@ -8,9 +8,9 @@ import { Error } from "@/components/Error";
 import { MainLayout } from "@/components/Layout";
 import { useAuth } from "@/lib/auth";
 import { AccountPage } from "@/pages/Account";
+import { AccountUpdatePage } from "@/pages/AccountUpdate";
 import { PasswordUpdatePage } from "@/pages/PasswordUpdate";
 import { UsersPage } from "@/pages/Users";
-import { AccountUpdatePage } from "@/pages/AccountUpdate";
 
 const App = () => {
   return (
@@ -57,7 +57,7 @@ export const getProtectedRoutes = (): RouteObject[] => {
           children: [
             { path: "users", element: <UsersPage /> },
             { path: "account", element: <AccountPage /> },
-            { path: "profile", element: <AccountUpdatePage />},
+            { path: "profile", element: <AccountUpdatePage /> },
             { path: "password-update", element: <PasswordUpdatePage /> },
           ],
         },
