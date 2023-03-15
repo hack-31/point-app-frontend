@@ -3,10 +3,10 @@ import { Box, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 import { ERR_REQUIRE_MESSAGE, MAX_USERNAME_LENGTH } from "@/const/const";
 import { useAuth } from "@/lib/auth";
+import * as snackbar from "@/lib/toast";
 
 import { updateAccount, UpdateAccountDTO } from "../api/updateAccount";
 import { SideBarLayout } from "./sideBarLayout";
@@ -15,7 +15,6 @@ import { SideBarLayout } from "./sideBarLayout";
  * アカウント更新
  */
 export const AccountUpdate: React.FC = React.memo(() => {
-  const history = useNavigate();
   const { user, refetchUser } = useAuth();
   const {
     handleSubmit,
@@ -33,10 +32,11 @@ export const AccountUpdate: React.FC = React.memo(() => {
   const { isLoading, mutate } = useMutation(
     (data: UpdateAccountDTO) => updateAccount(data),
     {
-      onSuccess: () => {
-        // TODO: 変更時のみスナックバーが表示されない
-        refetchUser();
-        history("/account");
+      onSuccess: async (res) => {
+        await refetchUser();
+        // NOTE: ステータスコード201なので、スナックバー出るはずだが、出ないので、
+        // 明示的にスナックバーを表示
+        snackbar.success(res.data.message);
       },
     }
   );
