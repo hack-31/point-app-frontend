@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 
 import { ERR_REQUIRE_MESSAGE, MAX_USERNAME_LENGTH } from "@/const/const";
 import { useAuth } from "@/lib/auth";
-import * as snackbar from "@/lib/toast";
 
 import { updateAccount, UpdateAccountDTO } from "../api/updateAccount";
 import { SideBarLayout } from "./sideBarLayout";
@@ -32,11 +31,8 @@ export const AccountUpdate: React.FC = React.memo(() => {
   const { isLoading, mutate } = useMutation(
     (data: UpdateAccountDTO) => updateAccount(data),
     {
-      onSuccess: async (res) => {
-        await refetchUser();
-        // NOTE: ステータスコード201なので、スナックバー出るはずだが、出ないので、
-        // 明示的にスナックバーを表示
-        snackbar.success(res.data.message);
+      onSuccess: () => {
+        refetchUser();
       },
     }
   );
