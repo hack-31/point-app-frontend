@@ -7,6 +7,7 @@ import {
 import { QueryClientProvider } from "@tanstack/react-query";
 import * as React from "react";
 import { RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { RecoilRoot } from "recoil";
 
 import { AuthProvider } from "@/lib/auth";
@@ -40,6 +41,7 @@ export const AppProvider = () => {
           </AuthProvider>
         </QueryClientProvider>
       </React.Suspense>
+      <ToastContainer />
     </RecoilRoot>
   );
 };

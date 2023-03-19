@@ -19,3 +19,9 @@ export const MIN_PASSWORD_LENGTH = {
   VALUE: 8,
   MESSAGE: "8文字以上で入力してください。",
 };
+
+// 名前
+export const MAX_USERNAME_LENGTH = {
+  VALUE: 50,
+  MESSAGE: "50文字以下で入力してください。",
+};

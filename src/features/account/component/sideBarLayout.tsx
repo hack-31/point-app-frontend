@@ -23,6 +23,7 @@ type Props = {
 export const SideBarLayout = React.memo(({ children }: Props) => {
   const navigationList = [
     { link: "account", text: "アカウント情報" },
+    { link: "profile", text: "アカウント更新" },
     { link: "password-update", text: "パスワード更新" },
   ];
   // レスポンシブかどうかを取得する
@@ -56,17 +57,17 @@ export const SideBarLayout = React.memo(({ children }: Props) => {
         flex={1}
       >
         <List>
-          {navigationList.map((navigateion) => (
+          {navigationList.map((navigation) => (
             <NavLink
-              key={navigateion.link}
-              to={`/${navigateion.link}`}
+              key={navigation.link}
+              to={`/${navigation.link}`}
               className={({ isActive, isPending }) =>
                 isActive ? "active" : isPending ? "pending" : ""
               }
             >
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemText primary={navigateion.text} />
+                  <ListItemText primary={navigation.text} />
                   {isMobile ? (
                     <KeyboardArrowDownIcon />
                   ) : (

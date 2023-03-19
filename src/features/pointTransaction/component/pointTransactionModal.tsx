@@ -14,7 +14,6 @@ import { ERR_REQUIRE_MESSAGE } from "@/const/const";
 import { queryKey } from "@/features/users/api/getUsers";
 import { useAuth } from "@/lib/auth";
 import { ErrResponse } from "@/lib/axios";
-import * as snackbar from "@/lib/toast";
 
 import { sendPoint, SendPointDTO } from "../api/sendPoint";
 
@@ -46,13 +45,10 @@ export const PointTransactionModal = React.memo(
     const { mutate, isLoading } = useMutation(
       (data: SendPointDTO) => sendPoint(data),
       {
-        onSuccess: async (res) => {
+        onSuccess: () => {
           closeModal();
-          await refetchUser();
-          await queryClient.invalidateQueries(queryKey);
-          // NOTE: ステータスコード201なので、スナックバー出るはずだが、出ないので、
-          // 明示的にスナックバーを表示
-          snackbar.success(res.data.message);
+          refetchUser();
+          queryClient.invalidateQueries(queryKey);
         },
         onError: (err: ErrResponse) => {
           setError(
