@@ -1,9 +1,9 @@
-import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 
+import { LoadingButton } from "@mui/lab";
 import { ERR_REQUIRE_MESSAGE, MAX_USERNAME_LENGTH } from "@/const/const";
 import { useAuth } from "@/lib/auth";
 
