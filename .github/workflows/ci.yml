@@ -20,7 +20,9 @@ jobs:
       - name: Install package
         run: yarn --frozen-lockfile
       - name: Run format(prettier) and lint(eslint)
-        run: yarn lint
+        run: yarn format && yarn lint
+      - name: Fail on format(prettier) and lint(eslint) errors
+        run: exit $(git status --porcelain | grep '^[MARCD]' | wc -l)
       - name: test-kudo
         run:  echo This is test event 
 
