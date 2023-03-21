@@ -1,0 +1,10 @@
+name: CI
+on: push
+jobs:
+  lint-format: # ジョブ作成
+    name: test-lint-format # ジョブ名の指定
+    runs-on: ubuntu-latest # GitHubが提供する仮想マシンの指定(最新の安定したイメージ)
+    steps:
+      - name: test-kudo
+        run:  echo This is test event 
+
