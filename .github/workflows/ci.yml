@@ -21,7 +21,7 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Run format(prettier) and lint(eslint)
         run: yarn format && yarn lint
-      - name: Fail on format(prettier) and lint(eslint) errors # formatとlint結果でファイル変更があった場合はCI失敗とする
+      - name: Fail on format(prettier) and lint(eslint) errors # formatとlint結果でファイル変更があった場合は赤文字でファイル名を出力しCI失敗とする
         run: git diff --name-only --diff-filter=d | sed '/^$/d' | awk '{print "\033[0;31m" $0 "\033[0m"} END{if(NR>0) exit 1}'
         shell: bash
       - name: test-kudo
