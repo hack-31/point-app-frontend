@@ -24,7 +24,7 @@ jobs:
       - name: Fail on format(prettier) and lint(eslint) errors # formatとlint結果でファイル変更があった場合はCI失敗とする
         run: |
           exit $(git status --porcelain | wc -l)
-          echo $(git status --porcelain)
+          git status --porcelain
         shell: bash
       - name: test-kudo
         run:  echo This is test event 
