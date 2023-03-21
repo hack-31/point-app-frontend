@@ -4,7 +4,19 @@ jobs:
   lint-format: # ジョブ作成
     name: test-lint-format # ジョブ名の指定
     runs-on: ubuntu-latest # GitHubが提供する仮想マシンの指定(最新の安定したイメージ)
+    strategy: # Nodeのバージョン指定(マトリックス戦略)
+      matrix:
+        node-version: [18.x]
     steps:
+      - name: Git checkout current branch # pushした時のブランチにcheckoutする
+        uses: actions/checkout@v3 #サードパーティの公開アクションを利用
+        with:
+          ref: ${{ github.ref }} # ジョブがトリガーされたGitリポジトリの参照を表す環境変数
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm # cacheを利用
       - name: test-kudo
         run:  echo This is test event 
 
