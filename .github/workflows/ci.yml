@@ -17,6 +17,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm # cacheを利用
+      - name: Install package
+        run: npm ci
+      - name: Run format(prettier) and lint(eslint)
+        run: npm run format && npm run lint
       - name: test-kudo
         run:  echo This is test event 
 
