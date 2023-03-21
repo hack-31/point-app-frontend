@@ -16,11 +16,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: npm # cacheを利用
+          cache: yarn # cacheを利用
       - name: Install package
-        run: npm ci
+        run: yarn --frozen-lockfile
       - name: Run format(prettier) and lint(eslint)
-        run: npm run format && npm run lint
+        run: yarn format && yarn lint
       - name: test-kudo
         run:  echo This is test event 
 
