@@ -22,7 +22,10 @@ jobs:
       - name: Run format(prettier) and lint(eslint)
         run: yarn format && yarn lint
       - name: Fail on format(prettier) and lint(eslint) errors # formatとlint結果でファイル変更があった場合はCI失敗とする
-        run: exit $(git status --porcelain | wc -l) echo $(git status --porcelain)
+        run: |
+          exit $(git status --porcelain | wc -l)
+          echo $(git status --porcelain)
+        shell: bash
       - name: test-kudo
         run:  echo This is test event 
 
