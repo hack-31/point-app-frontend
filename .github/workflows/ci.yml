@@ -22,9 +22,7 @@ jobs:
       - name: Run format(prettier) and lint(eslint)
         run: yarn format && yarn lint
       - name: Fail on format(prettier) and lint(eslint) errors # formatとlint結果でファイル変更があった場合はCI失敗とする
-        run: |
-          exit $(git status --porcelain | wc -l)
-          git status --porcelain
+        run: git diff --name-only --diff-filter=d | sed '/^$/d' | awk '{print "\033[0;31m" $0 "\033[0m"} END{if(NR>0) exit 1}'
         shell: bash
       - name: test-kudo
         run:  echo This is test event 
