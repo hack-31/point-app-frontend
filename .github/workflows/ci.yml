@@ -22,7 +22,7 @@ jobs:
       - name: Run format(prettier) and lint(eslint)
         run: yarn format && yarn lint
       - name: Fail on format(prettier) and lint(eslint) errors
-        run: exit $(git status --porcelain | grep '^[MARCD]' | wc -l)
+        run: exit $(git status --porcelain | wc -l)
       - name: test-kudo
         run:  echo This is test event 
 
