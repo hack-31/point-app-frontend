@@ -1,5 +1,9 @@
 name: CI
-on: push
+on: # トリガーは特定のブランチへのプッシュ時にする
+  push:
+    branches:
+      - 'main'
+      - 'develop'
 jobs:
   lint-format: # ジョブ作成
     name: lint-format # ジョブ名の指定
