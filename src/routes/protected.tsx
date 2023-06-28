@@ -8,6 +8,8 @@ import { MainLayout } from "@/components/Layout";
 import { useAuth } from "@/lib/auth";
 import { AccountPage } from "@/pages/Account";
 import { AccountUpdatePage } from "@/pages/AccountUpdate";
+import { NotificationPage } from "@/pages/Notification";
+import { NotificationsPage } from "@/pages/Notifications";
 import { PasswordUpdatePage } from "@/pages/PasswordUpdate";
 import { UsersPage } from "@/pages/Users";
 
@@ -57,6 +59,11 @@ export const getProtectedRoutes = (): RouteObject[] => {
             { path: "account", element: <AccountPage /> },
             { path: "profile", element: <AccountUpdatePage /> },
             { path: "password-update", element: <PasswordUpdatePage /> },
+            { path: "notifications", element: <NotificationsPage /> },
+            {
+              path: "notifications/:notificationId",
+              element: <NotificationPage />,
+            },
           ],
         },
       ],
