@@ -19,14 +19,14 @@ export const MainLayout = React.memo(({ children }: MainLayoutProps) => {
         sx={[
           {
             flex: 1,
-            my: "70px",
+            my: "55px",
             mx: "auto",
             width: "100%",
             maxWidth: "1230px",
           },
           ({ breakpoints }) => ({
             [breakpoints.up("sm")]: {
-              my: "80px",
+              my: "64px",
             },
           }),
         ]}
