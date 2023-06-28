@@ -1,0 +1,31 @@
+name: CI
+on: # トリガーは特定のブランチへのプッシュ時にする
+  push:
+    branches:
+      - 'main'
+      - 'develop'
+jobs:
+  lint-format: # ジョブ作成
+    name: lint-format # ジョブ名の指定
+    runs-on: ubuntu-latest # GitHubが提供する仮想マシンの指定(最新の安定したイメージ)
+    strategy: # Nodeのバージョン指定(マトリックス戦略)
+      matrix:
+        node-version: [18.x]
+    steps:
+      - name: Git checkout current branch # pushした時のブランチにcheckoutする
+        uses: actions/checkout@v3 #サードパーティの公開アクションを利用
+        with:
+          ref: ${{ github.ref }} # ジョブがトリガーされたGitリポジトリの参照を表す環境変数
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn # cacheを利用
+      - name: Install package
+        run: yarn --frozen-lockfile
+      - name: Run format(prettier) and lint(eslint)
+        run: yarn format && yarn lint
+      - name: Fail on format(prettier) and lint(eslint) errors # formatとlint結果でファイル変更があった場合は赤文字でファイル名を出力しCI失敗とする
+        run: git diff --name-only --diff-filter=d | sed '/^$/d' | awk '{print "\033[0;31m" $0 "\033[0m"} END{if(NR>0) exit 1}'
+        shell: bash
+
