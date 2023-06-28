@@ -13,7 +13,18 @@ export const UsersPage = () => {
   const [toUser, setToUser] = React.useState({ name: "", id: 0 });
 
   return (
-    <Box mx="10px" mt="100px">
+    <Box mx="10px">
+      <img
+        style={{
+          width: "100vw",
+          height: "250px",
+          marginRight: "calc(50% - 50vw)",
+          marginLeft: "calc(50% - 50vw)",
+          objectFit: "cover",
+        }}
+        src="/header.png"
+        alt="header"
+      />
       <Users
         onClick={({ id, firstName, familyName }) => {
           handleOpen();

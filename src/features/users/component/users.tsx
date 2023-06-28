@@ -27,7 +27,19 @@ export const Users = React.memo(({ onClick }: Props) => {
 
   return (
     <Box className="App" mx="auto">
-      <Box display="flex" alignItems="flex-end" borderRadius="8px">
+      <Box
+        display="flex"
+        alignItems="flex-end"
+        justifyContent="center"
+        height="35px"
+        px="30px"
+        borderRadius="8px"
+        position="relative"
+        top="-35px"
+        width="300px"
+        flexWrap="wrap"
+        bgcolor="white"
+      >
         <Box color="primary.main">送付可能ポイント:</Box>
         <Box
           color="#F18D5F"
