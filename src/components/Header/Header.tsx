@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { NotificationBadge } from "@/features/notification";
 import { useAuth } from "@/lib/auth";
 
 import { useHandleMenu } from "./hooks";
@@ -43,6 +44,7 @@ export const Header = React.memo(() => {
         </Typography>
         {user && (
           <>
+            <NotificationBadge />
             <IconButton
               size="large"
               aria-label="ユーザメニュー"
