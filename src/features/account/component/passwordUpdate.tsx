@@ -1,18 +1,30 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import {
-  ERR_REQUIRE_MESSAGE,
-  MAX_PASSWORD_LENGTH,
-  MIN_PASSWORD_LENGTH,
-} from "@/const/const";
+import { MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH } from "@/const/const";
 import { ErrResponse } from "@/lib/axios";
 
 import { updatePassword, UpdatePasswordDTO } from "../api/updatePassword";
 import { SideBarLayout } from "./sideBarLayout";
+
+const schema = z
+  .object({
+    oldPassword: z
+      .string()
+      .min(MIN_PASSWORD_LENGTH.VALUE, MIN_PASSWORD_LENGTH.MESSAGE)
+      .max(MAX_PASSWORD_LENGTH.VALUE, MAX_PASSWORD_LENGTH.MESSAGE),
+    newPassword: z
+      .string()
+      .min(MIN_PASSWORD_LENGTH.VALUE, MIN_PASSWORD_LENGTH.MESSAGE)
+      .max(MAX_PASSWORD_LENGTH.VALUE, MAX_PASSWORD_LENGTH.MESSAGE),
+  })
+  .required();
+type Schema = z.infer<typeof schema>;
 
 /**
  * パスワード更新画面の実装
@@ -24,11 +36,8 @@ export const PasswordUpdate = React.memo(() => {
     formState: { errors },
     setError,
     reset,
-  } = useForm({
-    defaultValues: {
-      oldPassword: "",
-      newPassword: "",
-    },
+  } = useForm<Schema>({
+    resolver: zodResolver(schema),
   });
 
   const { mutate, isLoading } = useMutation(
@@ -67,17 +76,7 @@ export const PasswordUpdate = React.memo(() => {
             fullWidth
             variant="outlined"
             type="password"
-            {...register("oldPassword", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-              minLength: {
-                value: MIN_PASSWORD_LENGTH.VALUE,
-                message: MIN_PASSWORD_LENGTH.MESSAGE,
-              },
-              maxLength: {
-                value: MAX_PASSWORD_LENGTH.VALUE,
-                message: MAX_PASSWORD_LENGTH.MESSAGE,
-              },
-            })}
+            {...register("oldPassword")}
           />
           <Box sx={{ color: "error.main" }}>{errors.oldPassword?.message}</Box>
         </Box>
@@ -87,17 +86,7 @@ export const PasswordUpdate = React.memo(() => {
             fullWidth
             type="password"
             variant="outlined"
-            {...register("newPassword", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-              minLength: {
-                value: MIN_PASSWORD_LENGTH.VALUE,
-                message: MIN_PASSWORD_LENGTH.MESSAGE,
-              },
-              maxLength: {
-                value: MAX_PASSWORD_LENGTH.VALUE,
-                message: MAX_PASSWORD_LENGTH.MESSAGE,
-              },
-            })}
+            {...register("newPassword")}
           />
           <Box sx={{ color: "error.main" }}>{errors.newPassword?.message}</Box>
         </Box>

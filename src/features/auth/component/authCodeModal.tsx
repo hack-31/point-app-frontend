@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@mui/lab";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -10,9 +11,20 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 import { ERR_REQUIRE_MESSAGE } from "@/const/const";
 import { useAuth } from "@/lib/auth";
+
+const schema = z
+  .object({
+    confirmCode: z
+      .string()
+      .min(1, ERR_REQUIRE_MESSAGE)
+      .length(4, "4桁の数値を入力してください。"),
+  })
+  .required();
+type Schema = z.infer<typeof schema>;
 
 type AuthCodeModalProps = {
   open: boolean;
@@ -30,8 +42,8 @@ export const AuthCodeModal = React.memo(
       register,
       handleSubmit,
       formState: { errors },
-    } = useForm({
-      defaultValues: { confirmCode: "" },
+    } = useForm<Schema>({
+      resolver: zodResolver(schema),
     });
     const auth = useAuth();
     const navigate = useNavigate();
@@ -60,9 +72,7 @@ export const AuthCodeModal = React.memo(
               type="text"
               variant="standard"
               inputProps={{ maxLength: 4 }}
-              {...register("confirmCode", {
-                required: { value: true, message: ERR_REQUIRE_MESSAGE },
-              })}
+              {...register("confirmCode")}
             />
             <Box sx={{ color: "error.main" }}>
               {errors.confirmCode?.message}
