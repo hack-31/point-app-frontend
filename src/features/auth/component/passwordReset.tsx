@@ -4,16 +4,27 @@ import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 import {
   ERR_MAIL_FORMAT_MESSAGE,
   ERR_REQUIRE_MESSAGE,
-  MAIL_FORMAT_REGEXP,
   MAX_MAIL_LENGTH,
 } from "@/const/const";
 import { ErrResponse } from "@/lib/axios";
 
 import { resetPassword, ResetPasswordDTO } from "../api/resetPassword";
+
+const schema = z
+  .object({
+    email: z
+      .string()
+      .min(1, ERR_REQUIRE_MESSAGE)
+      .max(MAX_MAIL_LENGTH.VALUE, MAX_MAIL_LENGTH.MESSAGE)
+      .email(ERR_MAIL_FORMAT_MESSAGE),
+  })
+  .required();
+type Schema = z.infer<typeof schema>;
 
 /**
  * パスワードリセット機能
@@ -24,11 +35,8 @@ export const PasswordReset: React.FC = React.memo(() => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-    },
-  });
+  } = useForm<Schema>();
+
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation(
     (data: ResetPasswordDTO) => resetPassword(data),
@@ -62,17 +70,7 @@ export const PasswordReset: React.FC = React.memo(() => {
             placeholder="yamada.taro@example.com"
             variant="outlined"
             type="email"
-            {...register("email", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-              pattern: {
-                value: MAIL_FORMAT_REGEXP,
-                message: ERR_MAIL_FORMAT_MESSAGE,
-              },
-              maxLength: {
-                value: MAX_MAIL_LENGTH.VALUE,
-                message: MAX_MAIL_LENGTH.MESSAGE,
-              },
-            })}
+            {...register("email")}
           />
           <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
         </Box>

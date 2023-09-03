@@ -1,19 +1,36 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 import { ArrowLink } from "@/components/ArrowLink";
 import {
   ERR_MAIL_FORMAT_MESSAGE,
   ERR_REQUIRE_MESSAGE,
-  MAIL_FORMAT_REGEXP,
   MAX_MAIL_LENGTH,
   MAX_PASSWORD_LENGTH,
   MIN_PASSWORD_LENGTH,
 } from "@/const/const";
 import { useAuth } from "@/lib/auth";
+
+// バリデーション設定
+const schema = z
+  .object({
+    email: z
+      .string()
+      .min(1, ERR_REQUIRE_MESSAGE)
+      .max(MAX_MAIL_LENGTH.VALUE, MAX_MAIL_LENGTH.MESSAGE)
+      .email(ERR_MAIL_FORMAT_MESSAGE),
+    password: z
+      .string()
+      .min(MIN_PASSWORD_LENGTH.VALUE, MIN_PASSWORD_LENGTH.MESSAGE)
+      .max(MAX_PASSWORD_LENGTH.VALUE, MAX_PASSWORD_LENGTH.MESSAGE),
+  })
+  .required();
+type Schema = z.infer<typeof schema>;
 
 /**
  * ログイン機能
@@ -23,11 +40,8 @@ export const Login: React.FC = React.memo(() => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+  } = useForm<Schema>({
+    resolver: zodResolver(schema),
   });
   const navigate = useNavigate();
   const { login, isLoggingIn } = useAuth();
@@ -49,17 +63,7 @@ export const Login: React.FC = React.memo(() => {
             fullWidth
             placeholder="yamada.taro@example.com"
             variant="outlined"
-            {...register("email", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-              pattern: {
-                value: MAIL_FORMAT_REGEXP,
-                message: ERR_MAIL_FORMAT_MESSAGE,
-              },
-              maxLength: {
-                value: MAX_MAIL_LENGTH.VALUE,
-                message: MAX_MAIL_LENGTH.MESSAGE,
-              },
-            })}
+            {...register("email")}
           />
           <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
         </Box>
@@ -70,17 +74,7 @@ export const Login: React.FC = React.memo(() => {
             type="password"
             variant="outlined"
             placeholder="********"
-            {...register("password", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-              minLength: {
-                value: MIN_PASSWORD_LENGTH.VALUE,
-                message: MIN_PASSWORD_LENGTH.MESSAGE,
-              },
-              maxLength: {
-                value: MAX_PASSWORD_LENGTH.VALUE,
-                message: MAX_PASSWORD_LENGTH.MESSAGE,
-              },
-            })}
+            {...register("password")}
           />
           <Box sx={{ color: "error.main" }}>{errors.password?.message}</Box>
         </Box>

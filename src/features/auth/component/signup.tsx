@@ -1,15 +1,17 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import {
   ERR_MAIL_FORMAT_MESSAGE,
   ERR_REQUIRE_MESSAGE,
-  MAIL_FORMAT_REGEXP,
   MAX_MAIL_LENGTH,
   MAX_PASSWORD_LENGTH,
+  MAX_USERNAME_LENGTH,
   MIN_PASSWORD_LENGTH,
 } from "@/const/const";
 import { useHandleDialog } from "@/hooks";
@@ -20,6 +22,37 @@ import {
   TemporaryRegisterCredentialsDTO,
 } from "../api/temporaryRegister";
 import { AuthCodeModal } from "./authCodeModal";
+
+const schema = z
+  .object({
+    email: z
+      .string()
+      .min(1, ERR_REQUIRE_MESSAGE)
+      .max(MAX_MAIL_LENGTH.VALUE, MAX_MAIL_LENGTH.MESSAGE)
+      .email(ERR_MAIL_FORMAT_MESSAGE),
+    password: z
+      .string()
+      .min(MIN_PASSWORD_LENGTH.VALUE, MIN_PASSWORD_LENGTH.MESSAGE)
+      .max(MAX_PASSWORD_LENGTH.VALUE, MAX_PASSWORD_LENGTH.MESSAGE),
+    familyName: z
+      .string()
+      .min(1, ERR_REQUIRE_MESSAGE)
+      .max(MAX_USERNAME_LENGTH.VALUE, MAX_USERNAME_LENGTH.MESSAGE),
+    familyNameKana: z
+      .string()
+      .min(1, ERR_REQUIRE_MESSAGE)
+      .max(MAX_USERNAME_LENGTH.VALUE, MAX_USERNAME_LENGTH.MESSAGE),
+    firstName: z
+      .string()
+      .min(1, ERR_REQUIRE_MESSAGE)
+      .max(MAX_USERNAME_LENGTH.VALUE, MAX_USERNAME_LENGTH.MESSAGE),
+    firstNameKana: z
+      .string()
+      .min(1, ERR_REQUIRE_MESSAGE)
+      .max(MAX_USERNAME_LENGTH.VALUE, MAX_USERNAME_LENGTH.MESSAGE),
+  })
+  .required();
+type Schema = z.infer<typeof schema>;
 
 /**
  * サインアップ機能
@@ -33,15 +66,8 @@ export const Signup: React.FC = React.memo(() => {
     getValues,
     setError,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      familyName: "",
-      familyNameKana: "",
-      firstName: "",
-      firstNameKana: "",
-      password: "",
-    },
+  } = useForm<Schema>({
+    resolver: zodResolver(schema),
   });
 
   const { mutate, isLoading } = useMutation(
@@ -79,17 +105,7 @@ export const Signup: React.FC = React.memo(() => {
             placeholder="yamada.taro@example.com"
             variant="outlined"
             type="email"
-            {...register("email", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-              pattern: {
-                value: MAIL_FORMAT_REGEXP,
-                message: ERR_MAIL_FORMAT_MESSAGE,
-              },
-              maxLength: {
-                value: MAX_MAIL_LENGTH.VALUE,
-                message: MAX_MAIL_LENGTH.MESSAGE,
-              },
-            })}
+            {...register("email")}
           />
           <Box sx={{ color: "error.main" }}>{errors.email?.message}</Box>
         </Box>
@@ -100,9 +116,7 @@ export const Signup: React.FC = React.memo(() => {
             placeholder="山田"
             type="text"
             variant="outlined"
-            {...register("familyName", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-            })}
+            {...register("familyName")}
           />
           <Box sx={{ color: "error.main" }}>{errors.familyName?.message}</Box>
         </Box>
@@ -113,9 +127,7 @@ export const Signup: React.FC = React.memo(() => {
             placeholder="太郎"
             type="text"
             variant="outlined"
-            {...register("firstName", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-            })}
+            {...register("firstName")}
           />
           <Box sx={{ color: "error.main" }}>{errors.firstName?.message}</Box>
         </Box>
@@ -126,9 +138,7 @@ export const Signup: React.FC = React.memo(() => {
             placeholder="ヤマダ"
             type="text"
             variant="outlined"
-            {...register("familyNameKana", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-            })}
+            {...register("familyNameKana")}
           />
           <Box sx={{ color: "error.main" }}>
             {errors.familyNameKana?.message}
@@ -141,9 +151,7 @@ export const Signup: React.FC = React.memo(() => {
             type="text"
             placeholder="タロウ"
             variant="outlined"
-            {...register("firstNameKana", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-            })}
+            {...register("firstNameKana")}
           />
           <Box sx={{ color: "error.main" }}>
             {errors.firstNameKana?.message}
@@ -155,17 +163,7 @@ export const Signup: React.FC = React.memo(() => {
             fullWidth
             type="password"
             variant="outlined"
-            {...register("password", {
-              required: { value: true, message: ERR_REQUIRE_MESSAGE },
-              minLength: {
-                value: MIN_PASSWORD_LENGTH.VALUE,
-                message: MIN_PASSWORD_LENGTH.MESSAGE,
-              },
-              maxLength: {
-                value: MAX_PASSWORD_LENGTH.VALUE,
-                message: MAX_PASSWORD_LENGTH.MESSAGE,
-              },
-            })}
+            {...register("password")}
           />
           <Box sx={{ color: "error.main" }}>{errors.password?.message}</Box>
         </Box>

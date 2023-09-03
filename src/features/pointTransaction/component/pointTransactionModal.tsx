@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton } from "@mui/lab";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -9,13 +10,20 @@ import TextField from "@mui/material/TextField";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { ERR_REQUIRE_MESSAGE } from "@/const/const";
 import { queryKey } from "@/features/users/api/getUsers";
 import { useAuth } from "@/lib/auth";
 import { ErrResponse } from "@/lib/axios";
 
 import { sendPoint, SendPointDTO } from "../api/sendPoint";
+
+const schema = z
+  .object({
+    sendPoint: z.coerce.number().min(1, "１以上の数値を指定してください。"),
+  })
+  .required();
+type Schema = z.infer<typeof schema>;
 
 type AuthCodeModalProps = {
   open: boolean;
@@ -39,7 +47,10 @@ export const PointTransactionModal = React.memo(
       setError,
       formState: { errors },
       reset,
-    } = useForm<{ sendPoint: number }>();
+    } = useForm<Schema>({
+      resolver: zodResolver(schema),
+    });
+
     const { user, refetchUser } = useAuth();
     const queryClient = useQueryClient();
     const { mutate, isLoading } = useMutation(
@@ -101,17 +112,7 @@ export const PointTransactionModal = React.memo(
                     }}
                     type="number"
                     variant="outlined"
-                    {...register("sendPoint", {
-                      required: { value: true, message: ERR_REQUIRE_MESSAGE },
-                      min: {
-                        value: 1,
-                        message: "１以上の数値を指定してください。",
-                      },
-                      pattern: {
-                        value: /^[0-9]*$/,
-                        message: "半角数値を指定してください。",
-                      },
-                    })}
+                    {...register("sendPoint")}
                   />
                   <Box width="70px" ml="10px" fontSize="20px">
                     00 px
