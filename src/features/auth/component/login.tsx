@@ -3,7 +3,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import { ArrowLink } from "@/components/ArrowLink";
@@ -44,8 +44,8 @@ export const Login: React.FC = React.memo(() => {
     resolver: zodResolver(schema),
   });
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { login, isLoggingIn } = useAuth();
-
   return (
     <Box className="App" mx="auto" maxWidth="400px" mt="100px">
       <Box textAlign="center" component="h2" mb="60px" color="#333">
@@ -54,7 +54,9 @@ export const Login: React.FC = React.memo(() => {
       <form
         onSubmit={handleSubmit(async (data) => {
           await login(data);
-          navigate("/users");
+          if (pathname === "/login") {
+            navigate("/users");
+          }
         })}
       >
         <Box marginBottom="24px">
