@@ -1,4 +1,8 @@
-import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import Axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 
 import { API_URL } from "@/config";
 import * as snackbar from "@/lib/toast";
@@ -11,19 +15,12 @@ import storage from "@/utils/storage";
  * @param config リクエストヘッダー一覧
  * @returns 修正したリクエストヘッダー
  */
-function authRequestInterceptor(config: AxiosRequestConfig) {
+function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   const token = storage.getToken() as string;
-
   if (token) {
-    config.headers
-      ? (config.headers.Authorization = `Bearer ${token}`)
-      : (config.headers = { Authorization: `Bearer ${token}` });
+    config.headers.set("Authorization", `Bearer ${token}`);
   }
-
-  config.headers
-    ? (config.headers.Accept = "application/json")
-    : (config.headers = { Accept: "application/json" });
-
+  config.headers.set("Accept", "application/json");
   return config;
 }
 /**
